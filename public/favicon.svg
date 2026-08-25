@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <rect width="24" height="24" rx="6" fill="#0E2A47"/>
-  <path d="M12 5c2 2.8 4.8 4 7.2 4-1.2 4.8-4 8.8-7.2 10.4C8.8 17.8 6 13.8 4.8 9 7.2 9 10 7.8 12 5Z" fill="#F6F1E9"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="10" fill="#1b2d4d"/>
+  <text x="50%" y="50%" dy=".07em" text-anchor="middle" dominant-baseline="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="34" font-weight="700" fill="#ffffff" letter-spacing="-1">US</text>
 </svg>

@@ -1,29 +1,32 @@
-# Dependencies
-node_modules
-.pnp
-.pnp.js
-
-# Build output
-dist
-dist-ssr
-*.local
-*.tsbuildinfo
-
-# Editor / OS
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-desktop.ini
-Thumbs.db
-
 # Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
-# Env
+node_modules
+dist
+dist-ssr
+*.local
 .env
-.env.*
-!.env.example
+src/assets/Rika+at+office (2).png
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local Netlify folder
+.netlify
+
+# Vite dev cache
+.vite

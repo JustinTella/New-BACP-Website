@@ -2,27 +2,48 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blue Angel Clinical Partners — Empowering physicians, preserving autonomy</title>
-    <meta
-      name="description"
-      content="Blue Angel is a leading provider of financial and operational support to a network of independent, concierge physicians. A doctor-first approach to partnership."
-    />
-    <meta property="og:title" content="Blue Angel Clinical Partners" />
-    <meta
-      property="og:description"
-      content="Empowering physicians, preserving autonomy. Financial and operational support for independent concierge practices."
-    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Ulrike Sujansky, M.D.</title>
+    <meta name="description" content="Concierge medicine in San Mateo with Ulrike Sujansky, M.D." />
+    <meta name="author" content="Ulrike Sujansky, M.D." />
+
+    <meta property="og:title" content="Ulrike Sujansky, M.D." />
+    <meta property="og:description" content="Concierge medicine in San Mateo with Ulrike Sujansky, M.D." />
     <meta property="og:type" content="website" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <meta property="og:image" content="%BASE_URL%brand-logo.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="%BASE_URL%brand-logo.png" />
   </head>
+
   <body>
+    <form name="contact" method="POST" action="/" netlify data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="bot-field" />
+      <input type="text" name="first_name" />
+      <input type="text" name="last_name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+    <form name="membership-request" method="POST" action="/" netlify data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="membership-request" />
+      <input type="hidden" name="bot-field" />
+      <input type="text" name="first_name" />
+      <input type="text" name="last_name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,33 +1,56 @@
-import { Routes, Route } from "react-router-dom";
-import Layout from "@/components/Layout";
-import Home from "@/pages/Home";
-import About from "@/pages/About";
-import Benefits from "@/pages/Benefits";
-import Succession from "@/pages/Succession";
-import Joining from "@/pages/Joining";
-import Partners from "@/pages/Partners";
-import Blog from "@/pages/Blog";
-import Contact from "@/pages/Contact";
-import PrivacyPolicy from "@/pages/PrivacyPolicy";
-import TermsOfService from "@/pages/TermsOfService";
-import NotFound from "@/pages/NotFound";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import ScrollToTop from "@/components/ScrollToTop";
+import HomePage from "./pages/HomePage";
+import MembershipPage from "./pages/MembershipPage";
+import ServicesPage from "./pages/ServicesPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import TeamPage from "./pages/TeamPage";
+import BlogPage from "./pages/BlogPage";
+import ContactPage from "./pages/ContactPage";
+import ThankYouPage from "./pages/ThankYouPage";
+import NotFound from "./pages/NotFound";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
 
-export default function App() {
-  return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/benefits" element={<Benefits />} />
-        <Route path="/succession" element={<Succession />} />
-        <Route path="/joining" element={<Joining />} />
-        <Route path="/partners" element={<Partners />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-service" element={<TermsOfService />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
-  );
+const queryClient = new QueryClient();
+const routerBasename =
+  import.meta.env.BASE_URL === "/"
+    ? undefined
+    : import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const redirectedPath = sessionStorage.getItem("spa-redirect");
+if (redirectedPath) {
+  sessionStorage.removeItem("spa-redirect");
+  window.history.replaceState(null, "", `${import.meta.env.BASE_URL}${redirectedPath}`);
 }
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Sonner position="top-center" />
+      <BrowserRouter basename={routerBasename}>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/membership" element={<MembershipPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/team" element={<TeamPage />} />
+          <Route path="/dr-sujansky" element={<Navigate to="/team" replace />} />
+          <Route path="/testimonials" element={<Navigate to="/about" replace />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
+export default App;
