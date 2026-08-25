@@ -1,241 +1,269 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Clock, Mail, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ContactForm from '@/components/ContactForm';
-import MapEmbed from '@/components/MapEmbed';
-import officeImageDesktop from '@/assets/hero-desktop-may1-2026.png';
-import officeImageMobile from '@/assets/hero-mobile-may1-2026.png';
-import contactOfficeImage from '@/assets/Gemini_Generated_Image_l6jcc5l6jcc5l6jc.png';
-import drPortrait from '@/assets/Rika+in+brown+blouse (1).webp';
-import shawnaPortrait from '@/assets/image-asset (4).webp';
-import kimPortrait from '@/assets/Kim (1).webp';
+import skylineDesktop from '@/assets/hero-sf-skyline.webp';
+import skylineMobile from '@/assets/hero-sf-skyline-sm.webp';
+
+const rise = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+};
+
+const pillars = [
+  {
+    index: '01',
+    title: 'Clinical autonomy stays with you',
+    body:
+      'No corporate protocols and no outside party setting appointment lengths. The medicine, the panel, and the name on the door remain the physicians own.',
+  },
+  {
+    index: '02',
+    title: 'We carry the administrative load',
+    body:
+      'Billing, credentialing, compliance, staffing and technology move to a team that does this every day, giving physicians their time back.',
+  },
+  {
+    index: '03',
+    title: 'You share in what you build',
+    body:
+      'Partnership means real economic alignment and a defined path to your next chapter, planned with you rather than handed down.',
+  },
+];
+
+const stats = [
+  { figure: 'Bay Area', label: 'Rooted in Northern California' },
+  { figure: 'Independent', label: 'Practices stay physician-led' },
+  { figure: 'MSO', label: 'Management services, not acquisition' },
+];
+
+const previewCards = [
+  {
+    eyebrow: 'Services',
+    title: 'The back office of a large group, at your scale',
+    body:
+      'Revenue cycle, compliance, staffing, technology and vendor contracts, handled end to end so your time goes back to the exam room.',
+    to: '/services',
+    label: 'Explore services',
+  },
+  {
+    eyebrow: 'Resources',
+    title: 'Guidance for the decisions ahead',
+    body:
+      'Practical material on practice economics, succession, and what is genuinely changing in the market for physician-owned practices.',
+    to: '/resources',
+    label: 'Browse resources',
+  },
+];
 
 function HomePage() {
-  const teamMembers = [
-    { name: 'Dr. Ulrike Sujansky', image: drPortrait, role: 'Physician', link: '/team#ulrike' },
-    { name: 'Shawna G.', image: shawnaPortrait, role: 'Office Manager', link: '/team#shawna' },
-    { name: 'Kim J.', image: kimPortrait, role: 'Medical Assistant', link: '/team#kim' }
-  ];
-
   return (
     <>
       <Header />
+
       <main>
-        {/* HERO - office building background */}
-        <section className="relative flex min-h-[88vh] items-end overflow-hidden pb-12 pt-28 md:pb-20 md:pt-32">
-          <div className="absolute inset-0 z-0">
+        {/* Hero: full-bleed skyline with an overlapping panel */}
+        <section className="relative">
+          <div className="relative h-[62vh] min-h-[420px] w-full overflow-hidden md:h-[76vh]">
             <picture>
-              <source media="(max-width: 767px)" srcSet={officeImageMobile} />
+              <source media="(max-width: 768px)" srcSet={skylineMobile} />
               <img
-                src={officeImageDesktop}
-                alt="Dr. Ulrike Sujansky speaking with a patient"
-                className="h-full w-full scale-[1.06] object-cover object-center md:scale-[1.08] md:object-[52%_30%]"
+                src={skylineDesktop}
+                alt="Illustrated view of the San Francisco skyline and Bay Bridge at dawn"
+                className="h-full w-full object-cover"
+                loading="eager"
               />
             </picture>
-            <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(93,72,24,0.26)_0%,rgba(126,98,35,0.18)_30%,rgba(255,227,158,0.14)_58%,rgba(255,248,222,0.04)_100%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,216,128,0.26),transparent_36%),radial-gradient(circle_at_bottom_left,rgba(255,244,209,0.18),transparent_30%)]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-white/10 to-transparent" />
           </div>
-          <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+
+          {/* Panel deliberately overlaps the image so the section reads as layered */}
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="relative max-w-3xl"
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="relative -mt-24 max-w-3xl bg-white p-8 shadow-[0_20px_60px_rgba(6,56,98,0.13)] sm:p-12 md:-mt-32 lg:p-14"
             >
-              <div className="pointer-events-none absolute -inset-x-8 -inset-y-10 bg-[radial-gradient(circle_at_left_center,rgba(16,30,52,0.68)_0%,rgba(16,30,52,0.5)_34%,rgba(16,30,52,0.26)_60%,transparent_84%)] blur-2xl md:-inset-x-12 md:-inset-y-12" />
-              <div className="mt-5 px-1 md:px-2">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
+                Blue Angel Clinical Partners
+              </span>
+              <h1 className="mt-6 font-serif text-4xl leading-[1.08] tracking-tight text-navy sm:text-5xl lg:text-6xl">
+                Empowering physicians,
+                <span className="block">preserving autonomy.</span>
+              </h1>
+              <p className="mt-7 max-w-xl text-lg leading-relaxed text-foreground/80">
+                We give independent practices the financial and operational backing of a
+                large group, while the medicine and the patient relationships stay exactly
+                where they belong.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-4">
                 <Link
-                  to="/contact"
-                  className="relative z-20 mb-5 inline-flex items-center justify-center rounded-full bg-[#f1d06f] px-7 py-3 text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-navy shadow-[0_10px_24px_rgba(15,23,42,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#f7e094] sm:mb-6 sm:px-8 sm:py-3.5 sm:text-sm"
+                  to="/be-a-partner"
+                  className="inline-flex items-center gap-2 bg-navy px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors duration-200 hover:bg-steely-blue"
                 >
-                  Inquire About Membership
+                  Be a Partner
+                  <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
-                <h1 className="mb-2 text-[2.7rem] font-semibold leading-[0.95] tracking-[-0.03em] text-white drop-shadow-[0_3px_18px_rgba(15,23,42,0.45)] md:text-[3.375rem] lg:text-[4.05rem]">
-                  Ulrike Sujansky, M.D.
-                </h1>
-                <p className="hero-text mb-1 text-[2.025rem] font-medium italic leading-none tracking-[-0.02em] text-white/95 drop-shadow-[0_3px_16px_rgba(15,23,42,0.42)] md:text-[2.7rem]">
-                  Concierge Medicine
-                </p>
-                <p className="hero-text mb-3 text-[2.025rem] font-medium italic leading-none text-white/95 drop-shadow-[0_3px_16px_rgba(15,23,42,0.42)] md:text-[2.7rem]">
-                  San Mateo, CA
-                </p>
-                <div className="space-y-2 text-[1.125rem] text-white/95 drop-shadow-[0_2px_10px_rgba(15,23,42,0.45)] md:text-[1.35rem]">
-                  <p className="hero-text flex items-center gap-2">
-                    <MapPin className="h-6 w-6 text-gold" />
-                    34 North San Mateo Drive, Suite 1
-                  </p>
-                  <p className="hero-text flex items-center gap-2">
-                    <Phone className="h-6 w-6 text-gold" />
-                    <a href="tel:+16503935851" className="transition-opacity hover:opacity-80">(650) 393-5851</a>
-                  </p>
-                </div>
+                <Link
+                  to="/why-blue-angel"
+                  className="inline-flex items-center gap-2 border border-navy/30 px-7 py-3.5 text-sm font-medium tracking-wide text-navy transition-colors duration-200 hover:border-navy hover:bg-navy hover:text-white"
+                >
+                  Why Blue Angel
+                </Link>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* OVERVIEW */}
+        {/* Positioning statement */}
         <section className="bg-white py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <h2 className="mb-6 text-[1.75rem] font-bold leading-snug tracking-tight text-navy md:text-[2rem]">What is Concierge Medicine?</h2>
-                <p className="mb-4 text-[1.45rem] leading-[1.85] text-foreground/90">Concierge medicine represents a return to the traditional doctor-patient relationship, where your physician has the time to truly know you and your health needs. Through an annual membership, you gain direct access to Dr. Sujansky, same-day or next-day appointments, and comprehensive care that goes beyond the constraints of traditional insurance-based medicine.</p>
-                <p className="mb-8 text-[1.45rem] leading-[1.85] text-foreground/90">This model allows for longer appointments, proactive health planning, and a genuine partnership in maintaining your wellbeing.</p>
-                <Link to="/services" className="inline-flex items-center text-sm font-semibold uppercase tracking-wider text-gold transition-colors hover:text-navy">
-                  View Our Services <ArrowRight className="ml-1.5 h-4 w-4" />
-                </Link>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="grid grid-cols-2 gap-x-4 gap-y-6 md:gap-x-5 md:gap-y-7"
-              >
-                {[
-                  { title: 'Direct Access', desc: '24/7 communication with your physician via phone or email.', accent: 'border-t-gold' },
-                  { title: 'More Time', desc: 'Extended, unhurried visits to address all your concerns.', accent: 'border-t-gold' },
-                  { title: 'Proactive Care', desc: 'Focus on prevention, wellness, and long-term health optimization.', accent: 'border-t-gold' },
-                  { title: 'Coordination', desc: 'Seamless specialist referrals and hospital care management.', accent: 'border-t-gold' }
-                ].map((card, i) => (
-                  <div key={i} className={`flex flex-col border border-navy/70 border-t-[3px] bg-white p-4 md:p-4.5 ${i >= 2 ? 'translate-y-4 md:translate-y-5' : ''} ${card.accent}`}>
-                    <h3 className="mb-2.5 text-[1.32rem] font-semibold leading-tight text-navy">{card.title}</h3>
-                    <p className="text-[1.1rem] leading-6 text-foreground/85">{card.desc}</p>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <motion.div {...rise} className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+              <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
+                A partner built for independent medicine
+              </h2>
+              <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
+                <p>
+                  Physicians are usually offered two options: carry every administrative
+                  burden alone, or sell the practice and accept someone elses protocols.
+                  Blue Angel exists because neither is a good answer.
+                </p>
+                <p>
+                  We are a management services organisation. We take on the operational
+                  side of the practice and leave the clinical side alone, a distinction
+                  that shapes everything else about how we partner.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* TEAM */}
-        <section className="bg-light-gray py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-14 text-center"
+        {/* Three pillars */}
+        <section className="border-y border-navy/10 bg-light-gray py-20 md:py-28">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <motion.span
+              {...rise}
+              className="block text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue"
             >
-              <p className="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-gold">Our Practice</p>
-              <h3 className="text-[1.75rem] font-bold tracking-tight text-navy md:text-[2rem]">Meet Our Team</h3>
-              <div className="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent" />
-            </motion.div>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              {teamMembers.map((member, index) => (
+              Why Blue Angel
+            </motion.span>
+            <div className="mt-12 grid gap-px bg-navy/10 md:grid-cols-3">
+              {pillars.map((pillar, i) => (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="group border border-navy/12 bg-white/80 p-4 shadow-[0_12px_30px_rgba(15,23,42,0.05)]"
+                  key={pillar.index}
+                  {...rise}
+                  transition={{ ...rise.transition, delay: i * 0.08 }}
+                  className="flex h-full flex-col bg-light-gray p-8 lg:p-10"
                 >
-                  <Link to={member.link} className="block">
-                    <div className="mb-5 overflow-hidden border border-navy/15">
-                      <img src={member.image} alt={`${member.name}, ${member.role}`} className="h-72 w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]" />
-                    </div>
-                  </Link>
-                  <div className="border-t border-gold/40 pt-4 text-center">
-                    <p className="text-[1.2rem] font-semibold text-navy">{member.name}</p>
-                    <p className="mt-1 text-[1rem] tracking-[0.08em] text-steely-blue">{member.role}</p>
-                  </div>
+                  <span className="font-serif text-5xl leading-none text-navy/20">
+                    {pillar.index}
+                  </span>
+                  <h3 className="mt-6 font-serif text-xl leading-snug text-navy">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-4 flex-1 text-base leading-relaxed text-foreground/75">
+                    {pillar.body}
+                  </p>
                 </motion.div>
               ))}
             </div>
-            <div className="mt-12 text-center">
-              <Link to="/team" className="inline-flex items-center justify-center border border-navy px-14 py-5 text-xl font-semibold uppercase tracking-[0.16em] text-navy transition-colors duration-200 hover:bg-navy hover:text-white active:scale-[0.97]">
-                Meet the Office
+            <motion.div {...rise} className="mt-12">
+              <Link
+                to="/why-blue-angel"
+                className="inline-flex items-center gap-2 text-sm font-medium text-steely-blue transition-colors hover:text-navy"
+              >
+                Read the full case
+                <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Proof band */}
+        <section className="bg-navy py-16 md:py-20">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-10 sm:grid-cols-3">
+              {stats.map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  {...rise}
+                  transition={{ ...rise.transition, delay: i * 0.08 }}
+                >
+                  <p className="font-serif text-3xl tracking-tight text-white sm:text-4xl">
+                    {stat.figure}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/70">{stat.label}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* CONTACT */}
+        {/* Services / Resources preview */}
         <section className="bg-white py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-14 text-center"
-            >
-              <h2 className="text-[1.75rem] font-bold tracking-tight text-navy md:text-[2rem]">Get in Touch</h2>
-              <p className="mt-2 text-sm text-foreground/60">We look forward to partnering in your health.</p>
-            </motion.div>
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-              <motion.div
-                initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="order-3 space-y-6 lg:order-1"
-              >
-                <div className="h-[400px] overflow-hidden border border-navy/70">
-                  <MapEmbed />
-                </div>
-                <div className="overflow-hidden border border-navy/70 bg-white">
-                  <img
-                    src={contactOfficeImage}
-                    alt="Exterior of the Sujansky medical office"
-                    className="h-64 w-full object-cover object-center"
-                  />
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="order-1 border border-navy/70 bg-light-gray p-6 lg:order-2"
-              >
-                <h3 className="mb-5 border-b border-gray-200 pb-3 text-[1.45rem] font-semibold text-navy">Send a Message</h3>
-                <ContactForm />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-                className="order-2 space-y-6 lg:order-3"
-              >
-                <div className="border border-navy/70 bg-white p-6">
-                  <h4 className="mb-4 flex items-center gap-2 border-b border-gray-100 pb-3 font-semibold text-navy">
-                    <MapPin className="h-4 w-4 text-gold" /> Contact Information
-                  </h4>
-                  <p className="mb-4 text-sm leading-relaxed text-foreground/80">34 North San Mateo Drive<br />Suite 1<br />San Mateo, CA 94401</p>
-                  <div className="space-y-2">
-                    <p className="flex items-center gap-2 text-sm text-foreground/80"><Phone className="h-3.5 w-3.5 text-steely-blue" /><span className="font-medium text-navy">Phone:</span> <a href="tel:+16503935851" className="hover:underline">(650) 393-5851</a></p>
-                    <p className="flex items-center gap-2 text-sm text-foreground/80"><Mail className="h-3.5 w-3.5 text-steely-blue" /><span className="font-medium text-navy">Fax:</span> (650) 393-5871</p>
-                  </div>
-                </div>
-                <div className="border border-navy/70 bg-white p-6">
-                  <h4 className="mb-4 flex items-center gap-2 border-b border-gray-100 pb-3 font-semibold text-navy">
-                    <Clock className="h-4 w-4 text-gold" /> Office Hours
-                  </h4>
-                  <div className="space-y-2.5 text-sm text-foreground/80">
-                    <div className="flex justify-between"><span className="font-medium text-navy">Mon - Fri</span><span>9:00am - 5:00pm</span></div>
-                    <div className="flex justify-between"><span className="font-medium text-navy">Sat - Sun</span><span className="text-foreground/50">Closed</span></div>
-                  </div>
-                </div>
-              </motion.div>
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-px bg-navy/10 md:grid-cols-2">
+              {previewCards.map((card, i) => (
+                <motion.div
+                  key={card.to}
+                  {...rise}
+                  transition={{ ...rise.transition, delay: i * 0.08 }}
+                  className="bg-white p-8 lg:p-12"
+                >
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
+                    {card.eyebrow}
+                  </span>
+                  <h3 className="mt-5 font-serif text-2xl leading-snug text-navy sm:text-3xl">
+                    {card.title}
+                  </h3>
+                  <p className="mt-5 text-base leading-relaxed text-foreground/75">
+                    {card.body}
+                  </p>
+                  <Link
+                    to={card.to}
+                    className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-steely-blue transition-colors hover:text-navy"
+                  >
+                    {card.label}
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </motion.div>
+              ))}
             </div>
+          </div>
+        </section>
+
+        {/* Closing CTA */}
+        <section className="border-t border-navy/10 bg-light-gray py-20 md:py-24">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <motion.div
+              {...rise}
+              className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+            >
+              <div className="max-w-2xl">
+                <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
+                  Considering your next chapter?
+                </h2>
+                <p className="mt-5 text-lg leading-relaxed text-foreground/80">
+                  Whether you are building a practice or planning your exit from one, we
+                  would welcome the conversation.
+                </p>
+              </div>
+              <Link
+                to="/be-a-partner"
+                className="inline-flex shrink-0 items-center gap-2 bg-navy px-8 py-4 text-sm font-medium tracking-wide text-white transition-colors duration-200 hover:bg-steely-blue"
+              >
+                Be a Partner
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </motion.div>
           </div>
         </section>
       </main>
+
       <Footer />
     </>
   );
