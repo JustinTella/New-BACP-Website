@@ -14,9 +14,9 @@ function TermsOfServicePage() {
             <h2 className="mt-8 mb-4 text-2xl font-semibold text-navy">Agreement to Terms</h2>
             <p className="mb-4">
               These Terms of Use constitute a legally binding agreement made between you, whether
-              personally or on behalf of an entity (&quot;you&quot;), and Ulrike Sujansky MD Inc. In
-              this document, &quot;we,&quot; &quot;our,&quot; or &quot;us&quot; refer to Ulrike Sujansky
-              MD Inc. concerning your access to and use of this website, as well as any other media
+              personally or on behalf of an entity (&quot;you&quot;), and Blue Angel Clinical Partners LLC In
+              this document, &quot;we,&quot; &quot;our,&quot; or &quot;us&quot; refer to Blue Angel Clinical
+              Partners LLC concerning your access to and use of this website, as well as any other media
               form, media channel, or mobile website related, linked, or otherwise connected thereto
               (collectively, the &quot;Site&quot;).
             </p>
@@ -182,10 +182,15 @@ function TermsOfServicePage() {
               In order to resolve a complaint regarding the Site or to receive further information
               regarding the use of the Site, please contact us at:
             </p>
-            <p className="mb-2">Ulrike Sujansky MD Inc.</p>
-            <p className="mb-2">34 North San Mateo Drive, Suite 1</p>
-            <p className="mb-4">San Mateo, California 94401</p>
-            <p className="mb-4">(650) 393-5851</p>
+            <p className="mb-2">Blue Angel Clinical Partners LLC</p>
+            <p className="mb-4">
+              <a
+                href="mailto:info@blueangelclinical.com"
+                className="text-steely-blue underline underline-offset-4 hover:text-navy"
+              >
+                info@blueangelclinical.com
+              </a>
+            </p>
           </div>
         </div>
       </main>

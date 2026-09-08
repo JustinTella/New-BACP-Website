@@ -13,7 +13,7 @@ function PrivacyPolicyPage() {
 
             <h2 className="mt-8 mb-4 text-2xl font-semibold text-navy">Overview</h2>
             <p className="mb-4">
-              Ulrike Sujansky MD Inc. respects your privacy and is committed to protecting the
+              Blue Angel Clinical Partners LLC respects your privacy and is committed to protecting the
               information you share with us through this website. This Privacy Policy explains how
               we collect, use, and safeguard information when you visit this website, submit a
               form, or otherwise interact with our online content.
@@ -99,10 +99,15 @@ function PrivacyPolicyPage() {
             </p>
 
             <h2 className="mt-8 mb-4 text-2xl font-semibold text-navy">Contact Us</h2>
-            <p className="mb-2">Ulrike Sujansky MD Inc.</p>
-            <p className="mb-2">34 North San Mateo Drive, Suite 1</p>
-            <p className="mb-4">San Mateo, California 94401</p>
-            <p className="mb-4">(650) 393-5851</p>
+            <p className="mb-2">Blue Angel Clinical Partners LLC</p>
+            <p className="mb-4">
+              <a
+                href="mailto:info@blueangelclinical.com"
+                className="text-steely-blue underline underline-offset-4 hover:text-navy"
+              >
+                info@blueangelclinical.com
+              </a>
+            </p>
           </div>
         </div>
       </main>

@@ -4,16 +4,17 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ScrollToTop from "@/components/ScrollToTop";
 import HomePage from "./pages/HomePage";
-import MembershipPage from "./pages/MembershipPage";
+import AboutBlueAngelPage from "./pages/AboutBlueAngelPage";
 import ServicesPage from "./pages/ServicesPage";
-import AboutUsPage from "./pages/AboutUsPage";
-import TeamPage from "./pages/TeamPage";
+import ResourcesPage from "./pages/ResourcesPage";
+import SuccessionPlanningPage from "./pages/SuccessionPlanningPage";
+import JoiningPracticePage from "./pages/JoiningPracticePage";
+import CareersPage from "./pages/CareersPage";
 import BlogPage from "./pages/BlogPage";
-import ContactPage from "./pages/ContactPage";
-import ThankYouPage from "./pages/ThankYouPage";
-import NotFound from "./pages/NotFound";
+import BeAPartnerPage from "./pages/BeAPartnerPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 const routerBasename =
@@ -35,17 +36,46 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/membership" element={<MembershipPage />} />
+          <Route path="/about" element={<AboutBlueAngelPage />} />
           <Route path="/services" element={<ServicesPage />} />
-          <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/team" element={<TeamPage />} />
-          <Route path="/dr-sujansky" element={<Navigate to="/team" replace />} />
-          <Route path="/testimonials" element={<Navigate to="/about" replace />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+          <Route
+            path="/resources/succession-planning"
+            element={<SuccessionPlanningPage />}
+          />
+          <Route
+            path="/resources/joining-a-practice"
+            element={<JoiningPracticePage />}
+          />
+          <Route path="/resources/careers" element={<CareersPage />} />
           <Route path="/blog" element={<BlogPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/be-a-partner" element={<BeAPartnerPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
+
+          {/* Paths carried over from the live blueangelclinical.com so existing
+              links and bookmarks keep working. */}
+          <Route path="/why-blue-angel" element={<Navigate to="/about" replace />} />
+          <Route
+            path="/partners"
+            element={<Navigate to="/about#current-partners" replace />}
+          />
+          <Route path="/benefits" element={<Navigate to="/services" replace />} />
+          <Route
+            path="/selling"
+            element={<Navigate to="/resources/succession-planning" replace />}
+          />
+          <Route
+            path="/succession"
+            element={<Navigate to="/resources/succession-planning" replace />}
+          />
+          <Route
+            path="/joining"
+            element={<Navigate to="/resources/joining-a-practice" replace />}
+          />
+          <Route path="/careers" element={<Navigate to="/resources/careers" replace />} />
+          <Route path="/contact" element={<Navigate to="/be-a-partner" replace />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

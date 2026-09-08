@@ -1,17 +1,14 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import skylineDesktop from '@/assets/hero-sf-skyline.webp';
-import skylineMobile from '@/assets/hero-sf-skyline-sm.webp';
-
-const rise = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-80px' },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-};
+import CTASection from '@/components/CTASection';
+import ComparisonTable from '@/components/ComparisonTable';
+import Reveal from '@/components/Reveal';
+import { rise } from '@/lib/motion';
+import { PrimaryLink, OutlineLink, TextLink } from '@/components/Buttons';
+import consultDesktop from '@/assets/hero-consult.webp';
+import consultMobile from '@/assets/hero-consult-sm.webp';
 
 const pillars = [
   {
@@ -34,45 +31,24 @@ const pillars = [
   },
 ];
 
-const stats = [
-  { figure: 'Bay Area', label: 'Rooted in Northern California' },
-  { figure: 'Independent', label: 'Practices stay physician-led' },
-  { figure: 'MSO', label: 'Management services, not acquisition' },
-];
-
-const previewCards = [
-  {
-    eyebrow: 'Services',
-    title: 'The back office of a large group, at your scale',
-    body:
-      'Revenue cycle, compliance, staffing, technology and vendor contracts, handled end to end so your time goes back to the exam room.',
-    to: '/services',
-    label: 'Explore services',
-  },
-  {
-    eyebrow: 'Resources',
-    title: 'Guidance for the decisions ahead',
-    body:
-      'Practical material on practice economics, succession, and what is genuinely changing in the market for physician-owned practices.',
-    to: '/resources',
-    label: 'Browse resources',
-  },
-];
-
 function HomePage() {
+  useEffect(() => {
+    document.title = 'Blue Angel Clinical Partners';
+  }, []);
+
   return (
     <>
       <Header />
 
       <main>
-        {/* Hero: full-bleed skyline with an overlapping panel */}
-        <section className="relative">
+        {/* Hero: full-bleed consultation watercolour with an overlapping panel */}
+        <section className="relative bg-white">
           <div className="relative h-[62vh] min-h-[420px] w-full overflow-hidden md:h-[76vh]">
             <picture>
-              <source media="(max-width: 768px)" srcSet={skylineMobile} />
+              <source media="(max-width: 768px)" srcSet={consultMobile} />
               <img
-                src={skylineDesktop}
-                alt="Illustrated view of the San Francisco skyline and Bay Bridge at dawn"
+                src={consultDesktop}
+                alt="Watercolour of a physician and patient talking across a desk, with the Bay Bridge and San Francisco Bay through the window behind them"
                 className="h-full w-full object-cover"
                 loading="eager"
               />
@@ -101,19 +77,8 @@ function HomePage() {
                 where they belong.
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
-                <Link
-                  to="/be-a-partner"
-                  className="inline-flex items-center gap-2 bg-navy px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors duration-200 hover:bg-steely-blue"
-                >
-                  Be a Partner
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-                <Link
-                  to="/why-blue-angel"
-                  className="inline-flex items-center gap-2 border border-navy/30 px-7 py-3.5 text-sm font-medium tracking-wide text-navy transition-colors duration-200 hover:border-navy hover:bg-navy hover:text-white"
-                >
-                  Why Blue Angel
-                </Link>
+                <PrimaryLink to="/be-a-partner">Be a Partner</PrimaryLink>
+                <OutlineLink to="/about">About Blue Angel</OutlineLink>
               </div>
             </motion.div>
           </div>
@@ -133,7 +98,7 @@ function HomePage() {
                   Blue Angel exists because neither is a good answer.
                 </p>
                 <p>
-                  We are a management services organisation. We take on the operational
+                  We are a management services organization. We take on the operational
                   side of the practice and leave the clinical side alone, a distinction
                   that shapes everything else about how we partner.
                 </p>
@@ -172,96 +137,39 @@ function HomePage() {
               ))}
             </div>
             <motion.div {...rise} className="mt-12">
-              <Link
-                to="/why-blue-angel"
-                className="inline-flex items-center gap-2 text-sm font-medium text-steely-blue transition-colors hover:text-navy"
-              >
-                Read the full case
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
+              <TextLink to="/about">Learn more about us</TextLink>
             </motion.div>
           </div>
         </section>
 
-        {/* Proof band */}
-        <section className="bg-navy py-16 md:py-20">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-10 sm:grid-cols-3">
-              {stats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  {...rise}
-                  transition={{ ...rise.transition, delay: i * 0.08 }}
-                >
-                  <p className="font-serif text-3xl tracking-tight text-white sm:text-4xl">
-                    {stat.figure}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-white/70">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Services / Resources preview */}
+        {/* Comparison — doubles as a summary of the services and resources pages */}
         <section className="bg-white py-20 md:py-28">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-px bg-navy/10 md:grid-cols-2">
-              {previewCards.map((card, i) => (
-                <motion.div
-                  key={card.to}
-                  {...rise}
-                  transition={{ ...rise.transition, delay: i * 0.08 }}
-                  className="bg-white p-8 lg:p-12"
-                >
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
-                    {card.eyebrow}
-                  </span>
-                  <h3 className="mt-5 font-serif text-2xl leading-snug text-navy sm:text-3xl">
-                    {card.title}
-                  </h3>
-                  <p className="mt-5 text-base leading-relaxed text-foreground/75">
-                    {card.body}
-                  </p>
-                  <Link
-                    to={card.to}
-                    className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-steely-blue transition-colors hover:text-navy"
-                  >
-                    {card.label}
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
+            <Reveal className="max-w-3xl">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
+                Compare the options
+              </span>
+              <h2 className="mt-6 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
+                Everything a large group gives you. Nothing it takes.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-foreground/80">
+                Every row below is something we actually do. Follow any of them through to
+                the page that explains it.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.1} className="mt-14">
+              <ComparisonTable />
+            </Reveal>
+
+            <Reveal className="mt-12 flex flex-wrap gap-4">
+              <PrimaryLink to="/services">Explore services</PrimaryLink>
+              <OutlineLink to="/resources">Browse resources</OutlineLink>
+            </Reveal>
           </div>
         </section>
 
-        {/* Closing CTA */}
-        <section className="border-t border-navy/10 bg-light-gray py-20 md:py-24">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              {...rise}
-              className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
-            >
-              <div className="max-w-2xl">
-                <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
-                  Considering your next chapter?
-                </h2>
-                <p className="mt-5 text-lg leading-relaxed text-foreground/80">
-                  Whether you are building a practice or planning your exit from one, we
-                  would welcome the conversation.
-                </p>
-              </div>
-              <Link
-                to="/be-a-partner"
-                className="inline-flex shrink-0 items-center gap-2 bg-navy px-8 py-4 text-sm font-medium tracking-wide text-white transition-colors duration-200 hover:bg-steely-blue"
-              >
-                Be a Partner
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </motion.div>
-          </div>
-        </section>
+        <CTASection />
       </main>
 
       <Footer />
