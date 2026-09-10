@@ -1,9 +1,11 @@
 import Page from '@/components/Page';
-import PageHero from '@/components/PageHero';
+import SplitHero from '@/components/SplitHero';
 import Reveal from '@/components/Reveal';
 import CTASection from '@/components/CTASection';
-import { PrimaryLink, OutlineLink, TextLink } from '@/components/Buttons';
+import { OutlineLink, TextLink } from '@/components/Buttons';
 import { site } from '@/content/blueangel';
+import successionHandover from '@/assets/succession-handover.webp';
+import successionHandoverSm from '@/assets/succession-handover-sm.webp';
 
 const approach = [
   {
@@ -53,16 +55,18 @@ const reasons = [
 function SuccessionPlanningPage() {
   return (
     <Page title="Succession Planning">
-      <PageHero
+      <SplitHero
         eyebrow="Resources — Succession Planning"
         title="A transition plan that's uniquely rewarding."
         lede="Blue Angel offers a unique path for retiring physicians to ensure their practice thrives, their patients are cared for, and their life's work is honored."
+        image={successionHandover}
+        imageMobile={successionHandoverSm}
+        imageAlt="Watercolour of a retiring physician and a younger successor talking together in a light-filled consulting room above the bay"
       >
-        <PrimaryLink to="/be-a-partner">Start the conversation</PrimaryLink>
-        <OutlineLink to="/services">See what we handle</OutlineLink>
-      </PageHero>
+        <OutlineLink to="/be-a-partner">Start the conversation</OutlineLink>
+      </SplitHero>
 
-      {/* The Blue Angel approach */}
+      {/* The approach, as a stepped timeline rather than a grid of cards */}
       <section className="bg-white py-20 md:py-28">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-3xl">
@@ -74,27 +78,34 @@ function SuccessionPlanningPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid gap-px bg-navy/10 sm:grid-cols-2">
+          <ol className="mt-16 max-w-4xl">
             {approach.map((step, i) => (
-              <Reveal key={step.index} delay={i * 0.07} className="h-full">
-                <div className="flex h-full flex-col bg-white p-8 lg:p-10">
-                  <span className="font-serif text-5xl leading-none text-navy/20">
+              <Reveal key={step.index} delay={i * 0.07}>
+                <li className="relative grid gap-4 border-l border-navy/15 pb-14 pl-8 last:pb-0 sm:grid-cols-[5rem_1fr] sm:gap-8 sm:pl-12">
+                  {/* Marker sits on the rule to make the sequence explicit */}
+                  <span
+                    className="absolute -left-[0.3125rem] top-2 h-2.5 w-2.5 rounded-full bg-gold"
+                    aria-hidden
+                  />
+                  <span className="font-serif text-4xl leading-none text-navy/25">
                     {step.index}
                   </span>
-                  <h3 className="mt-6 font-serif text-xl leading-snug text-navy">
-                    {step.title}
-                  </h3>
-                  <p className="mt-4 flex-1 text-base leading-relaxed text-foreground/75">
-                    {step.body}
-                  </p>
-                </div>
+                  <div>
+                    <h3 className="font-serif text-2xl leading-snug text-navy">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 text-base leading-relaxed text-foreground/75">
+                      {step.body}
+                    </p>
+                  </div>
+                </li>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* Why succession planning with Blue Angel */}
+      {/* Why us, as hanging-heading prose rather than boxes */}
       <section className="border-y border-navy/10 bg-light-gray py-20 md:py-28">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-3xl">
@@ -106,20 +117,20 @@ function SuccessionPlanningPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid gap-px bg-navy/10 md:grid-cols-3">
+          <dl className="mt-14 divide-y divide-navy/15 border-y border-navy/15">
             {reasons.map((reason, i) => (
-              <Reveal key={reason.title} delay={i * 0.08} className="h-full">
-                <div className="flex h-full flex-col bg-light-gray p-8 lg:p-10">
-                  <h3 className="font-serif text-xl leading-snug text-navy">
+              <Reveal key={reason.title} delay={i * 0.07}>
+                <div className="grid gap-4 py-9 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+                  <dt className="font-serif text-2xl leading-snug text-navy">
                     {reason.title}
-                  </h3>
-                  <p className="mt-4 flex-1 text-base leading-relaxed text-foreground/75">
+                  </dt>
+                  <dd className="text-base leading-relaxed text-foreground/75">
                     {reason.body}
-                  </p>
+                  </dd>
                 </div>
               </Reveal>
             ))}
-          </div>
+          </dl>
 
           <Reveal className="mt-12">
             <TextLink to="/about#current-partners">

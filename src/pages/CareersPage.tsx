@@ -4,6 +4,7 @@ import Reveal from '@/components/Reveal';
 import CTASection from '@/components/CTASection';
 import { PrimaryLink, TextLink } from '@/components/Buttons';
 import { site } from '@/content/blueangel';
+import careersTeam from '@/assets/careers-team.webp';
 
 /**
  * Placeholder role families rather than live postings — the live site has no
@@ -101,6 +102,12 @@ function CareersPage() {
               <h2 className="mt-6 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
                 No formal postings right now.
               </h2>
+              <img
+                src={careersTeam}
+                alt="Watercolour of a small mixed team of clinicians and operators talking around a table, the bay and San Francisco skyline through the windows"
+                loading="lazy"
+                className="mt-10 hidden w-full object-cover shadow-[0_20px_60px_rgba(6,56,98,0.13)] lg:block"
+              />
             </Reveal>
 
             <Reveal delay={0.1}>

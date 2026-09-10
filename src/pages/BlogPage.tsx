@@ -4,14 +4,21 @@ import PageHero from '@/components/PageHero';
 import Reveal from '@/components/Reveal';
 import CTASection from '@/components/CTASection';
 import { newsItems } from '@/content/blueangel';
+import blogDesk from '@/assets/blog-desk.webp';
+import blogDeskSm from '@/assets/blog-desk-sm.webp';
 
 function BlogPage() {
   return (
     <Page title="Blog">
+      {/* The journal sits low in the painting, so the crop is biased downward */}
       <PageHero
         eyebrow="Blog"
         title="Latest news."
         lede="Announcements from Blue Angel and perspective on what is actually changing in the market for physician-owned practices."
+        image={blogDesk}
+        imageMobile={blogDeskSm}
+        imageAlt="Watercolour of a writing desk by a window at dawn — an open journal, a pen and reading glasses, with the bay, Bay Bridge and San Francisco skyline beyond"
+        imagePosition="object-bottom"
       />
 
       <section className="bg-white py-20 md:py-28">

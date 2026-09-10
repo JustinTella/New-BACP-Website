@@ -4,6 +4,8 @@ import Page from '@/components/Page';
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/Reveal';
 import CTASection from '@/components/CTASection';
+import resourcesPath from '@/assets/resources-path.webp';
+import resourcesPathSm from '@/assets/resources-path-sm.webp';
 
 const resources = [
   {
@@ -39,6 +41,9 @@ function ResourcesPage() {
         eyebrow="Resources"
         title="Guidance for the decisions ahead."
         lede="Three paths into the Blue Angel platform, depending on where you are in your career. Each one is explained in full below."
+        image={resourcesPath}
+        imageMobile={resourcesPathSm}
+        imageAlt="Watercolour of stone steps climbing a Bay Area hillside toward a glass-fronted concierge practice, the bay and San Francisco skyline beyond"
       />
 
       <section className="bg-white py-20 md:py-28">

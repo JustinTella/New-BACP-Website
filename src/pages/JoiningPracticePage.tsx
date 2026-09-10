@@ -1,10 +1,12 @@
 import { Check } from 'lucide-react';
 import Page from '@/components/Page';
-import PageHero from '@/components/PageHero';
+import SplitHero from '@/components/SplitHero';
 import Reveal from '@/components/Reveal';
 import CTASection from '@/components/CTASection';
-import { PrimaryLink, OutlineLink } from '@/components/Buttons';
+import { OutlineLink } from '@/components/Buttons';
 import { site } from '@/content/blueangel';
+import joiningArrival from '@/assets/joining-arrival.webp';
+import joiningArrivalSm from '@/assets/joining-arrival-sm.webp';
 
 const opportunity = [
   {
@@ -43,55 +45,54 @@ const criteria = [
 function JoiningPracticePage() {
   return (
     <Page title="Joining a Practice">
-      <PageHero
+      {/* Artwork on the left here, mirroring succession planning, so the two
+          sibling pages are distinguishable at a glance. */}
+      <SplitHero
+        reverse
         eyebrow="Resources — Joining a Practice"
         title="Ownership that's not overwhelming."
         lede="Blue Angel offers early-career physicians a unique opportunity to build a rewarding career in concierge medicine with the full support of an established network."
+        image={joiningArrival}
+        imageMobile={joiningArrivalSm}
+        imageAlt="Watercolour of an early-career physician stepping through the glass door of a hillside concierge practice, the bay and skyline behind"
       >
-        <PrimaryLink to="/be-a-partner">Start the conversation</PrimaryLink>
-        <OutlineLink to="/services">See what we handle</OutlineLink>
-      </PageHero>
+        <OutlineLink to="/be-a-partner">Start the conversation</OutlineLink>
+      </SplitHero>
 
-      {/* Who this is for */}
+      {/* Who this is for — opens on the quote, which is the whole pitch */}
       <section className="bg-white py-20 md:py-28">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-            <Reveal>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
-                Who this is for
-              </span>
-              <h2 className="mt-6 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
-                You like the idea of stepping into your own practice.
-              </h2>
-            </Reveal>
+          <Reveal className="mx-auto max-w-4xl text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
+              Who this is for
+            </span>
+            <blockquote className="mt-8 font-serif text-2xl leading-snug text-navy sm:text-3xl lg:text-4xl">
+              &ldquo;I am a hospitalist now. What I actually want is to be a doctor with my
+              own practice &mdash; I like the idea of stepping into my own practice.&rdquo;
+            </blockquote>
+          </Reveal>
 
-            <Reveal delay={0.1}>
-              <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
-                <p className="border-l-2 border-gold bg-light-gray p-7 text-navy">
-                  &ldquo;I am a hospitalist now. What I actually want is to be a doctor
-                  with my own practice — I like the idea of stepping into my own
-                  practice.&rdquo;
-                </p>
-                <p>
-                  That is the conversation we have most often. The pull is not away from
-                  medicine, it is toward the kind of medicine that made you go into it:
-                  a panel you know, appointments long enough to be useful, and a practice
-                  with your name on it.
-                </p>
-                <p>
-                  What stops most physicians is everything around the medicine — the
-                  lease, the loan, the billing, the hiring, the years of building a panel
-                  from zero. Joining an established Blue Angel practice removes that
-                  entire layer. You inherit a working practice and a full patient panel on
-                  your first day, and you build equity in it from there.
-                </p>
-              </div>
-            </Reveal>
-          </div>
+          <Reveal delay={0.1} className="mx-auto mt-14 max-w-3xl">
+            <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
+              <p>
+                That is the conversation we have most often. The pull is not away from
+                medicine, it is toward the kind of medicine that made you go into it: a
+                panel you know, appointments long enough to be useful, and a practice with
+                your name on it.
+              </p>
+              <p>
+                What stops most physicians is everything around the medicine — the lease,
+                the loan, the billing, the hiring, the years of building a panel from zero.
+                Joining an established Blue Angel practice removes that entire layer. You
+                inherit a working practice and a full patient panel on your first day, and
+                you build equity in it from there.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* The opportunity */}
+      {/* The opportunity, as numbered rows rather than another card grid */}
       <section className="border-y border-navy/10 bg-light-gray py-20 md:py-28">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-3xl">
@@ -103,23 +104,23 @@ function JoiningPracticePage() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid gap-px bg-navy/10 sm:grid-cols-2">
+          <ol className="mt-14 divide-y divide-navy/15 border-y border-navy/15">
             {opportunity.map((item, i) => (
-              <Reveal key={item.index} delay={i * 0.07} className="h-full">
-                <div className="flex h-full flex-col bg-light-gray p-8 lg:p-10">
-                  <span className="font-serif text-5xl leading-none text-navy/20">
+              <Reveal key={item.index} delay={i * 0.06}>
+                <li className="grid gap-3 py-9 sm:grid-cols-[4rem_1fr] sm:gap-8 lg:grid-cols-[4rem_0.7fr_1.3fr] lg:gap-12">
+                  <span className="font-serif text-3xl leading-none text-navy/25">
                     {item.index}
                   </span>
-                  <h3 className="mt-6 font-serif text-xl leading-snug text-navy">
+                  <h3 className="font-serif text-xl leading-snug text-navy sm:text-2xl">
                     {item.title}
                   </h3>
-                  <p className="mt-4 flex-1 text-base leading-relaxed text-foreground/75">
+                  <p className="text-base leading-relaxed text-foreground/75 sm:col-start-2 lg:col-start-3">
                     {item.body}
                   </p>
-                </div>
+                </li>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 

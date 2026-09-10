@@ -11,6 +11,8 @@ type PageHeroProps = {
   /** Narrower source served below 768px. Falls back to `image`. */
   imageMobile?: string;
   imageAlt?: string;
+  /** object-position utility for the banner crop, e.g. "object-bottom". */
+  imagePosition?: string;
 };
 
 /**
@@ -25,17 +27,18 @@ function PageHero({
   image,
   imageMobile,
   imageAlt = '',
+  imagePosition = 'object-center',
 }: PageHeroProps) {
   return (
     <section className="border-b border-navy/10 bg-white">
       {image && (
-        <div className="relative h-[30vh] min-h-[220px] w-full overflow-hidden md:h-[38vh]">
+        <div className="relative h-[32vh] min-h-[240px] w-full overflow-hidden md:h-auto md:aspect-[21/9] md:max-h-[60vh]">
           <picture>
             {imageMobile && <source media="(max-width: 768px)" srcSet={imageMobile} />}
             <img
               src={image}
               alt={imageAlt}
-              className="h-full w-full object-cover"
+              className={`h-full w-full object-cover ${imagePosition}`}
               loading="eager"
             />
           </picture>

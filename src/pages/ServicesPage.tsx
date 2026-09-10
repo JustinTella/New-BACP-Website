@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
 import Page from '@/components/Page';
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/Reveal';
 import CTASection from '@/components/CTASection';
-import { PrimaryLink, TextLink } from '@/components/Buttons';
+import { OutlineLink, TextLink } from '@/components/Buttons';
 import {
   clinicalServices,
   administrativeServices,
   type ServiceItem,
 } from '@/content/blueangel';
+import servicesDesk from '@/assets/services-desk.webp';
 
 function ServiceGrid({ items }: { items: ServiceItem[] }) {
   return (
@@ -39,18 +39,34 @@ function ServicesPage() {
       {/* Clinical */}
       <section className="bg-white py-20 md:py-28">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-3xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
-              Clinical services
-            </span>
-            <h2 className="mt-6 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
-              Support at the point of care.
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-foreground/80">
-              The clinical decisions stay with you. What changes is what stands behind
-              them — coverage, referrals, colleagues, and continuing education.
-            </p>
-          </Reveal>
+          {/* Square artwork beside the intro, rather than another banner across
+              the top, so this page reads differently from the rest of the site. */}
+          <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+            <Reveal>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
+                Clinical services
+              </span>
+              <h2 className="mt-6 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
+                Support at the point of care.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-foreground/80">
+                The clinical decisions stay with you. What changes is what stands behind
+                them — coverage when you are away, a specialist network to refer into,
+                colleagues who practice the way you do, and a menu of add-ons you can
+                take or leave.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <img
+                src={servicesDesk}
+                alt="Watercolour of a physician working at a desk in a light-filled practice office, the bay and San Francisco skyline through tall windows"
+                loading="lazy"
+                className="aspect-square w-full object-cover shadow-[0_20px_60px_rgba(6,56,98,0.13)]"
+              />
+            </Reveal>
+          </div>
+
           <ServiceGrid items={clinicalServices} />
         </div>
       </section>
@@ -93,10 +109,7 @@ function ServicesPage() {
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 border-l-2 border-gold pl-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:pl-12">
             <Reveal>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
-                Also a service
-              </span>
-              <h2 className="mt-6 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
+              <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
                 Liquidity
               </h2>
             </Reveal>
@@ -104,26 +117,17 @@ function ServicesPage() {
             <Reveal delay={0.1}>
               <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
                 <p>
-                  One of the services we offer is liquidity. Most of a physician&rsquo;s
-                  net worth sits inside a practice that is difficult to sell and easy to
-                  undervalue. We capture the full financial value of the patient panel and
-                  the goodwill built over decades, and pay for it upfront — without you
-                  closing the doors or walking away from the practice on day one.
-                </p>
-                <p>
-                  To learn more about thoughtful succession planning,{' '}
-                  <Link
-                    to="/resources/succession-planning"
-                    className="font-medium text-steely-blue underline decoration-steely-blue/40 underline-offset-4 transition-colors hover:text-navy hover:decoration-navy/60"
-                  >
-                    click here
-                  </Link>
-                  .
+                  We&rsquo;re proud to help practice owners fairly monetize the value of
+                  what they&rsquo;ve built. Most of a physician&rsquo;s net worth sits
+                  inside a practice that is difficult to sell and easy to undervalue. We
+                  capture the full financial value of the patient panel and the goodwill
+                  built over decades, and pay for it upfront — without you closing the
+                  doors or walking away from the practice on day one.
                 </p>
                 <div className="flex flex-wrap gap-4 pt-2">
-                  <PrimaryLink to="/resources/succession-planning">
+                  <OutlineLink to="/resources/succession-planning">
                     Succession planning
-                  </PrimaryLink>
+                  </OutlineLink>
                   <TextLink to="/resources">See all resources</TextLink>
                 </div>
               </div>

@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
@@ -7,8 +9,9 @@ import ComparisonTable from '@/components/ComparisonTable';
 import Reveal from '@/components/Reveal';
 import { rise } from '@/lib/motion';
 import { PrimaryLink, OutlineLink, TextLink } from '@/components/Buttons';
-import consultDesktop from '@/assets/hero-consult.webp';
-import consultMobile from '@/assets/hero-consult-sm.webp';
+import networkDesktop from '@/assets/hero-network.webp';
+import networkMobile from '@/assets/hero-network-sm.webp';
+import { partners } from '@/content/blueangel';
 
 const pillars = [
   {
@@ -41,14 +44,14 @@ function HomePage() {
       <Header />
 
       <main>
-        {/* Hero: full-bleed consultation watercolour with an overlapping panel */}
+        {/* Hero: full-bleed network-of-practices watercolour with an overlapping panel */}
         <section className="relative bg-white">
           <div className="relative h-[62vh] min-h-[420px] w-full overflow-hidden md:h-[76vh]">
             <picture>
-              <source media="(max-width: 768px)" srcSet={consultMobile} />
+              <source media="(max-width: 768px)" srcSet={networkMobile} />
               <img
-                src={consultDesktop}
-                alt="Watercolour of a physician and patient talking across a desk, with the Bay Bridge and San Francisco Bay through the window behind them"
+                src={networkDesktop}
+                alt="Watercolour of independent concierge practices across the Bay Area, linked by glowing lines, with the San Francisco skyline and Bay Bridge beyond"
                 className="h-full w-full object-cover"
                 loading="eager"
               />
@@ -77,7 +80,7 @@ function HomePage() {
                 where they belong.
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
-                <PrimaryLink to="/be-a-partner">Be a Partner</PrimaryLink>
+                <PrimaryLink to="/be-a-partner">Become a Partner</PrimaryLink>
                 <OutlineLink to="/about">About Blue Angel</OutlineLink>
               </div>
             </motion.div>
@@ -98,12 +101,49 @@ function HomePage() {
                   Blue Angel exists because neither is a good answer.
                 </p>
                 <p>
-                  We are a management services organization. We take on the operational
-                  side of the practice and leave the clinical side alone, a distinction
-                  that shapes everything else about how we partner.
+                  We take on the operational side of the practice and leave the clinical
+                  side alone, a distinction that shapes everything else about how we
+                  partner.
                 </p>
               </div>
             </motion.div>
+
+            {/* Current partners, given real weight rather than a passing link —
+                the practices already in the network are the proof of the model. */}
+            <Reveal className="mt-16">
+              <Link
+                to="/about#current-partners"
+                className="group flex flex-col gap-8 border-l-2 border-gold bg-light-gray p-8 transition-colors duration-200 hover:bg-navy/[0.04] sm:flex-row sm:items-center sm:gap-10 lg:p-10"
+              >
+                <span className="flex shrink-0 items-center">
+                  {partners.map((partner, i) => (
+                    <img
+                      key={partner.name}
+                      src={partner.image}
+                      alt=""
+                      aria-hidden
+                      loading="lazy"
+                      className={`h-20 w-20 rounded-full border-2 border-white object-cover shadow-sm sm:h-24 sm:w-24 ${
+                        i > 0 ? '-ml-6' : ''
+                      }`}
+                    />
+                  ))}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
+                    Current partners
+                  </span>
+                  <span className="mt-4 block font-serif text-2xl leading-snug text-navy sm:text-3xl">
+                    Two independent practices have already chosen partnership over
+                    acquisition.
+                  </span>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-steely-blue transition-colors group-hover:text-navy">
+                    Meet Dr. Daniher and Dr. Sujansky
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </span>
+                </span>
+              </Link>
+            </Reveal>
           </div>
         </section>
 

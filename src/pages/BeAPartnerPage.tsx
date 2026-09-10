@@ -5,6 +5,8 @@ import Reveal from '@/components/Reveal';
 import CTASection from '@/components/CTASection';
 import { TextLink } from '@/components/Buttons';
 import { site, partners } from '@/content/blueangel';
+import partnerConversation from '@/assets/partner-conversation.webp';
+import partnerConversationSm from '@/assets/partner-conversation-sm.webp';
 
 const paths = [
   {
@@ -27,11 +29,14 @@ const paths = [
 
 function BeAPartnerPage() {
   return (
-    <Page title="Be a Partner">
+    <Page title="Become a Partner">
       <PageHero
-        eyebrow="Be a Partner"
+        eyebrow="Become a Partner"
         title="Get in touch."
         lede="We're here to answer your questions about our partnership model, whether you're considering selling your practice or joining our network."
+        image={partnerConversation}
+        imageMobile={partnerConversationSm}
+        imageAlt="Watercolour of a physician and a visitor talking across a small table by a window, the bay, Bay Bridge and San Francisco skyline beyond"
       />
 
       {/* Contact */}

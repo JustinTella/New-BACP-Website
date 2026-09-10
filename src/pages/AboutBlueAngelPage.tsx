@@ -2,12 +2,11 @@ import { MapPin, Plus, Linkedin, ArrowUpRight } from 'lucide-react';
 import Page from '@/components/Page';
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/Reveal';
-import CTASection from '@/components/CTASection';
 import { TextLink } from '@/components/Buttons';
-import { partners, investorLogos, founderLogos } from '@/content/blueangel';
+import { partners, investorLogos } from '@/content/blueangel';
 import josephPortrait from '@/assets/bacp/joseph-robillard.jpg';
-import skylineDesktop from '@/assets/hero-sf-skyline.webp';
-import skylineMobile from '@/assets/hero-sf-skyline-sm.webp';
+import consultDesktop from '@/assets/hero-consult.webp';
+import consultMobile from '@/assets/hero-consult-sm.webp';
 
 function AboutBlueAngelPage() {
   return (
@@ -16,9 +15,9 @@ function AboutBlueAngelPage() {
         eyebrow="About Blue Angel"
         title="The partner of choice for concierge physicians."
         lede="Our mission is to become the partner of choice for existing and aspiring doctors practicing concierge medicine."
-        image={skylineDesktop}
-        imageMobile={skylineMobile}
-        imageAlt="Illustrated view of the San Francisco skyline and Bay Bridge at dawn"
+        image={consultDesktop}
+        imageMobile={consultMobile}
+        imageAlt="Watercolour of a physician and patient talking across a desk, with the Bay Bridge and San Francisco Bay through the window behind them"
       />
 
       {/* Mission narrative */}
@@ -236,34 +235,11 @@ function AboutBlueAngelPage() {
                   younger brother. I am also a Level 2 sommelier, always looking for a new
                   favorite bottle of wine on my travels.
                 </p>
-
-                <div className="pt-4">
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
-                    Education and experience
-                  </span>
-                  <div className="mt-6 grid grid-cols-2 gap-px bg-navy/10 sm:grid-cols-3">
-                    {founderLogos.map((logo) => (
-                      <div
-                        key={logo.name}
-                        className="grid place-items-center bg-light-gray px-5 py-8"
-                      >
-                        <img
-                          src={logo.src}
-                          alt={logo.name}
-                          loading="lazy"
-                          className="max-h-12 w-auto max-w-[8.5rem] object-contain opacity-80"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
-
-      <CTASection />
     </Page>
   );
 }

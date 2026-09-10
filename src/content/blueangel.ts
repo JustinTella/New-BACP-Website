@@ -29,7 +29,7 @@ export const navLinks = [
   { path: '/blog', label: 'Blog' },
 ];
 
-export const ctaLink = { path: '/be-a-partner', label: 'Be a Partner' };
+export const ctaLink = { path: '/be-a-partner', label: 'Become a Partner' };
 
 /* ------------------------------------------------------------------ */
 /* Services                                                            */
@@ -44,7 +44,8 @@ export const clinicalServices: ServiceItem[] = [
   },
   {
     title: 'Ancillary Services',
-    body: 'Expand what your practice can offer with supported ancillary services that add real value for patients.',
+    body:
+      'Concierge nurses, nutritionists and more, so the practice can offer far more than one physician’s time.',
   },
   {
     title: 'Shared Specialist Networks',
@@ -58,12 +59,18 @@ export const clinicalServices: ServiceItem[] = [
     title: 'Access to Specialty Education',
     body: 'Continuing education and specialty learning that keeps your practice at the leading edge.',
   },
+  {
+    title: 'A La Carte Add-Ons',
+    body:
+      'Travel medicine, expanded physicals, direct imaging and testing through our SimonMed relationship, and discounted vaccines at group purchasing rates — each practice picks what fits.',
+  },
 ];
 
 export const administrativeServices: ServiceItem[] = [
   {
     title: 'Accounting, Payroll & Benefits',
-    body: 'The whole back office — bookkeeping, payroll runs, and benefits administration — handled by a team that does it every day.',
+    body:
+      'The whole back office — bookkeeping, payroll runs, and benefits administration — handled by a team of specialists.',
   },
   {
     title: 'Insurance Coverage',
@@ -81,6 +88,11 @@ export const administrativeServices: ServiceItem[] = [
     title: 'Operations & Marketing',
     body: 'Day-to-day operations, patient communications, and marketing support to keep the practice growing.',
   },
+  {
+    title: 'Cash Management',
+    body:
+      'Financial support that smooths the year out, so seasonal collections or a large purchase never dictate what the practice can do next.',
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -89,7 +101,7 @@ export const administrativeServices: ServiceItem[] = [
 
 export const comparisonColumns = [
   'Blue Angel',
-  'Health system or PE roll-up',
+  'Large Health System or Group',
   'Solo ownership',
 ] as const;
 
@@ -219,20 +231,6 @@ export const investorLogos = [
   { name: 'Vitana', src: invVitana },
   { name: 'The Skin Center', src: invSkinCenter },
   { name: 'Additional partner', src: invAdditional },
-];
-
-import expGlowbar from '@/assets/bacp/exp-glowbar.png';
-import expMonogram from '@/assets/bacp/exp-monogram-capital.png';
-import expGuggenheim from '@/assets/bacp/exp-guggenheim.jpg';
-import expStanford from '@/assets/bacp/exp-stanford-gsb.jpg';
-import expWharton from '@/assets/bacp/exp-wharton.png';
-
-export const founderLogos = [
-  { name: 'Stanford Graduate School of Business', src: expStanford },
-  { name: 'The Wharton School, University of Pennsylvania', src: expWharton },
-  { name: 'Guggenheim', src: expGuggenheim },
-  { name: 'Monogram Capital Partners', src: expMonogram },
-  { name: 'Glowbar', src: expGlowbar },
 ];
 
 /* ------------------------------------------------------------------ */

@@ -1,5 +1,5 @@
 import Reveal from '@/components/Reveal';
-import { PrimaryLink, OutlineLink } from '@/components/Buttons';
+import { OutlineLink } from '@/components/Buttons';
 
 /**
  * Closing block used at the foot of every page. The heading sits on its own
@@ -23,7 +23,7 @@ function CTASection() {
         <div className="mt-14 grid gap-px bg-navy/10 md:grid-cols-2">
           <Reveal className="flex h-full flex-col bg-light-gray pb-2 pr-0 pt-8 md:pr-10 md:pt-10">
             <h3 className="font-serif text-2xl leading-snug text-navy sm:text-3xl">
-              Do you want to sell?
+              Looking to sell your practice?
             </h3>
             <p className="mt-5 flex-1 text-base leading-relaxed text-foreground/75">
               Receive upfront liquidity for the practice you built, then hand it to a
@@ -31,9 +31,9 @@ function CTASection() {
               cared for throughout.
             </p>
             <div className="mt-8">
-              <PrimaryLink to="/resources/succession-planning">
+              <OutlineLink to="/resources/succession-planning">
                 Succession planning
-              </PrimaryLink>
+              </OutlineLink>
             </div>
           </Reveal>
 
@@ -42,7 +42,7 @@ function CTASection() {
             className="flex h-full flex-col bg-light-gray pb-2 pt-8 md:pl-10 md:pt-10"
           >
             <h3 className="font-serif text-2xl leading-snug text-navy sm:text-3xl">
-              Do you want to join?
+              Looking to join a practice?
             </h3>
             <p className="mt-5 flex-1 text-base leading-relaxed text-foreground/75">
               Step into an established concierge practice with an existing patient panel,
