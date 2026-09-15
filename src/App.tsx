@@ -8,6 +8,7 @@ import AboutBlueAngelPage from "./pages/AboutBlueAngelPage";
 import ServicesPage from "./pages/ServicesPage";
 import ResourcesPage from "./pages/ResourcesPage";
 import SuccessionPlanningPage from "./pages/SuccessionPlanningPage";
+import SuccessionPlanningGuidePage from "./pages/SuccessionPlanningGuidePage";
 import JoiningPracticePage from "./pages/JoiningPracticePage";
 import CareersPage from "./pages/CareersPage";
 import BlogPage from "./pages/BlogPage";
@@ -42,6 +43,10 @@ const App = () => (
           <Route
             path="/resources/succession-planning"
             element={<SuccessionPlanningPage />}
+          />
+          <Route
+            path="/resources/succession-planning-guide"
+            element={<SuccessionPlanningGuidePage />}
           />
           <Route
             path="/resources/joining-a-practice"

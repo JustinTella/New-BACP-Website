@@ -1,10 +1,7 @@
-import { Check } from 'lucide-react';
 import Page from '@/components/Page';
 import SplitHero from '@/components/SplitHero';
 import Reveal from '@/components/Reveal';
-import CTASection from '@/components/CTASection';
-import { OutlineLink } from '@/components/Buttons';
-import { site } from '@/content/blueangel';
+import IntakeForm from '@/components/IntakeForm';
 import joiningArrival from '@/assets/joining-arrival.webp';
 import joiningArrivalSm from '@/assets/joining-arrival-sm.webp';
 
@@ -25,7 +22,7 @@ const opportunity = [
     index: '03',
     title: 'Receive Full Operational Support',
     body:
-      'We handle all administrative, billing, and marketing tasks so you can focus entirely on patient care.',
+      'Blue Angel carries the administrative, billing, recruiting, and operating work so you can focus on patient care.',
   },
   {
     index: '04',
@@ -34,65 +31,48 @@ const opportunity = [
   },
 ];
 
-const criteria = [
-  'Self-starters who are looking for an opportunity for ownership',
-  'Knowledgeable doctors who are passionate about their patients',
-  'Believers in the relationship-style approach to primary care',
-  'Avid learners who are eager for mentorship',
-  "Physicians who don't want the financial risk or operational burden of running a practice",
-];
-
 function JoiningPracticePage() {
   return (
     <Page title="Joining a Practice">
-      {/* Artwork on the left here, mirroring succession planning, so the two
-          sibling pages are distinguishable at a glance. */}
       <SplitHero
         reverse
         eyebrow="Resources — Joining a Practice"
         title="Ownership that's not overwhelming."
-        lede="Blue Angel offers early-career physicians a unique opportunity to build a rewarding career in concierge medicine with the full support of an established network."
+        lede="Blue Angel gives physicians a path into relationship-based concierge medicine with an established practice, a patient panel, and a platform behind them."
         image={joiningArrival}
         imageMobile={joiningArrivalSm}
         imageAlt="Watercolour of an early-career physician stepping through the glass door of a hillside concierge practice, the bay and skyline behind"
-      >
-        <OutlineLink to="/be-a-partner">Start the conversation</OutlineLink>
-      </SplitHero>
+      />
 
-      {/* Who this is for — opens on the quote, which is the whole pitch */}
       <section className="bg-white py-20 md:py-28">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="mx-auto max-w-4xl text-center">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
-              Who this is for
-            </span>
-            <blockquote className="mt-8 font-serif text-2xl leading-snug text-navy sm:text-3xl lg:text-4xl">
-              &ldquo;I am a hospitalist now. What I actually want is to be a doctor with my
-              own practice &mdash; I like the idea of stepping into my own practice.&rdquo;
-            </blockquote>
+            <p className="font-serif text-2xl italic leading-snug text-navy sm:text-3xl lg:text-4xl">
+              Blue Angel helps physicians step into an established concierge practice,
+              care for a panel from day one, and grow into ownership with a full platform
+              behind them.
+            </p>
           </Reveal>
 
           <Reveal delay={0.1} className="mx-auto mt-14 max-w-3xl">
             <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
               <p>
-                That is the conversation we have most often. The pull is not away from
-                medicine, it is toward the kind of medicine that made you go into it: a
-                panel you know, appointments long enough to be useful, and a practice with
-                your name on it.
+                The opportunity is not simply a new job. It is a supported path into a
+                practice that already has a name, a team, and patients who value
+                relationship-based care. You can spend your energy learning the patients,
+                shaping the medicine, and becoming a trusted owner in the community.
               </p>
               <p>
-                What stops most physicians is everything around the medicine — the lease,
-                the loan, the billing, the hiring, the years of building a panel from zero.
-                Joining an established Blue Angel practice removes that entire layer. You
-                inherit a working practice and a full patient panel on your first day, and
-                you build equity in it from there.
+                Blue Angel provides the operating structure that is difficult to build
+                alone: administrative support, recruiting resources, shared services, and
+                guidance from physicians who have already chosen this model. The practice
+                remains physician-led while you gain a clear, practical path to equity.
               </p>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* The opportunity, as numbered rows rather than another card grid */}
       <section className="border-y border-navy/10 bg-light-gray py-20 md:py-28">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-3xl">
@@ -105,12 +85,10 @@ function JoiningPracticePage() {
           </Reveal>
 
           <ol className="mt-14 divide-y divide-navy/15 border-y border-navy/15">
-            {opportunity.map((item, i) => (
-              <Reveal key={item.index} delay={i * 0.06}>
+            {opportunity.map((item, index) => (
+              <Reveal key={item.index} delay={index * 0.06}>
                 <li className="grid gap-3 py-9 sm:grid-cols-[4rem_1fr] sm:gap-8 lg:grid-cols-[4rem_0.7fr_1.3fr] lg:gap-12">
-                  <span className="font-serif text-3xl leading-none text-navy/25">
-                    {item.index}
-                  </span>
+                  <span className="font-serif text-3xl leading-none text-navy/25">{item.index}</span>
                   <h3 className="font-serif text-xl leading-snug text-navy sm:text-2xl">
                     {item.title}
                   </h3>
@@ -124,60 +102,22 @@ function JoiningPracticePage() {
         </div>
       </section>
 
-      {/* Who we're looking for */}
-      <section className="bg-white py-20 md:py-28">
+      <section id="joining-intake" className="bg-white py-20 md:py-24">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-            <Reveal>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
-                Who we&rsquo;re looking for
-              </span>
-              <h2 className="mt-6 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
-                The physicians who do well here.
-              </h2>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <ul className="divide-y divide-navy/10 border-y border-navy/10">
-                {criteria.map((item) => (
-                  <li key={item} className="flex items-start gap-4 py-5">
-                    <Check
-                      className="mt-1.5 h-5 w-5 shrink-0 text-steely-blue"
-                      strokeWidth={2.5}
-                      aria-hidden
-                    />
-                    <span className="text-base leading-relaxed text-foreground/80">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Start the conversation */}
-      <section className="border-t border-navy/10 bg-white py-20 md:py-24">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
+          <Reveal className="max-w-3xl">
             <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
               Start the conversation
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-foreground/80">
-              Reach out to our team directly at:
+              Tell us the kind of concierge practice you hope to build and where you see
+              yourself practicing.
             </p>
-            <a
-              href={`mailto:${site.email}`}
-              className="mt-4 inline-block font-serif text-2xl text-navy underline decoration-gold decoration-2 underline-offset-8 transition-colors hover:text-steely-blue"
-            >
-              {site.email}
-            </a>
+            <div className="mt-10">
+              <IntakeForm kind="joining" />
+            </div>
           </Reveal>
         </div>
       </section>
-
-      <CTASection />
     </Page>
   );
 }

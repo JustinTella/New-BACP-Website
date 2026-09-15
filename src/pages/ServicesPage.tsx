@@ -50,10 +50,10 @@ function ServicesPage() {
                 Support at the point of care.
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-foreground/80">
-                The clinical decisions stay with you. What changes is what stands behind
-                them — coverage when you are away, a specialist network to refer into,
-                colleagues who practice the way you do, and a menu of add-ons you can
-                take or leave.
+                Clinical services stay with you. We bring what may not be achievable for a
+                standalone practice but is possible through the Blue Angel platform:
+                cross-coverage, shared services, and support for your journey to clinical
+                excellence.
               </p>
             </Reveal>
 
@@ -82,8 +82,8 @@ function ServicesPage() {
               We handle the business of medicine.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-foreground/80">
-              The work that pulls physicians away from patients moves to us, so your time
-              goes back to the exam room.
+              We take on the day-to-day work that pulls physicians away from the medical
+              room, so your time goes back to patient care.
             </p>
           </Reveal>
 
@@ -117,12 +117,13 @@ function ServicesPage() {
             <Reveal delay={0.1}>
               <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
                 <p>
-                  We&rsquo;re proud to help practice owners fairly monetize the value of
+                  Unlike our competitors or alternatives, there is no one-size-fits-all
+                  partnership structure. Each agreement is tailored to what makes sense for
+                  you. We&rsquo;re proud to help practice owners fairly monetize the value of
                   what they&rsquo;ve built. Most of a physician&rsquo;s net worth sits
                   inside a practice that is difficult to sell and easy to undervalue. We
                   capture the full financial value of the patient panel and the goodwill
-                  built over decades, and pay for it upfront — without you closing the
-                  doors or walking away from the practice on day one.
+                  built over decades, and pay for it upfront.
                 </p>
                 <div className="flex flex-wrap gap-4 pt-2">
                   <OutlineLink to="/resources/succession-planning">

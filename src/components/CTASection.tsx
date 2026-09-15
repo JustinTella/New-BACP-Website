@@ -3,7 +3,7 @@ import { OutlineLink } from '@/components/Buttons';
 
 /**
  * Closing block used at the foot of every page. The heading sits on its own
- * above two even columns — sell on the left, join on the right — so a visitor
+ * above two even columns — join on the left, sell on the right — so a visitor
  * self-selects before choosing an action.
  */
 function CTASection() {
@@ -15,13 +15,31 @@ function CTASection() {
             Considering your next chapter?
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-foreground/80">
-            Whether you are building a practice or planning your exit from one, we
-            would welcome the conversation.
+            Whether you are looking to join a practice or planning to sell your own,{' '}
+            <span className="whitespace-nowrap">we welcome the conversation.</span>
           </p>
         </Reveal>
 
         <div className="mt-14 grid gap-px bg-navy/10 md:grid-cols-2">
           <Reveal className="flex h-full flex-col bg-light-gray pb-2 pr-0 pt-8 md:pr-10 md:pt-10">
+            <h3 className="font-serif text-2xl leading-snug text-navy sm:text-3xl">
+              Looking to join a practice?
+            </h3>
+            <p className="mt-5 flex-1 text-base leading-relaxed text-foreground/75">
+              Step into an established concierge practice with an existing patient panel,
+              full operational support behind you, and a clear path to equity ownership.
+            </p>
+            <div className="mt-8">
+              <OutlineLink to="/resources/joining-a-practice">
+                Joining a practice
+              </OutlineLink>
+            </div>
+          </Reveal>
+
+          <Reveal
+            delay={0.08}
+            className="flex h-full flex-col bg-light-gray pb-2 pt-8 md:pl-10 md:pt-10"
+          >
             <h3 className="font-serif text-2xl leading-snug text-navy sm:text-3xl">
               Looking to sell your practice?
             </h3>
@@ -33,24 +51,6 @@ function CTASection() {
             <div className="mt-8">
               <OutlineLink to="/resources/succession-planning">
                 Succession planning
-              </OutlineLink>
-            </div>
-          </Reveal>
-
-          <Reveal
-            delay={0.08}
-            className="flex h-full flex-col bg-light-gray pb-2 pt-8 md:pl-10 md:pt-10"
-          >
-            <h3 className="font-serif text-2xl leading-snug text-navy sm:text-3xl">
-              Looking to join a practice?
-            </h3>
-            <p className="mt-5 flex-1 text-base leading-relaxed text-foreground/75">
-              Step into an established concierge practice with an existing patient panel,
-              full operational support behind you, and a clear path to equity ownership.
-            </p>
-            <div className="mt-8">
-              <OutlineLink to="/resources/joining-a-practice">
-                Joining a practice
               </OutlineLink>
             </div>
           </Reveal>

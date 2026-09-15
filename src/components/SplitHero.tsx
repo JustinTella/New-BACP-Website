@@ -34,7 +34,7 @@ function SplitHero({
   reverse = false,
   children,
 }: SplitHeroProps) {
-  const picture = (
+  const mobilePicture = (
     <picture>
       {imageMobile && <source media="(max-width: 768px)" srcSet={imageMobile} />}
       <img
@@ -46,25 +46,30 @@ function SplitHero({
     </picture>
   );
 
+  // The desktop image deliberately does not animate. A paused background tab
+  // can otherwise hold its opacity at zero even when the asset has loaded.
+  const desktopPicture = (
+    <picture aria-hidden="true">
+      {imageMobile && <source media="(max-width: 768px)" srcSet={imageMobile} />}
+      <img src={image} alt="" loading="eager" className="h-full w-full object-cover" />
+    </picture>
+  );
+
   return (
     <section className="relative overflow-hidden border-b border-navy/10 bg-light-gray">
       {/* Desktop artwork: half the viewport, full height of the section. */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-        aria-hidden
+      <div
         className={`absolute inset-y-0 hidden w-1/2 lg:block ${
           reverse ? 'left-0' : 'right-0'
         }`}
       >
-        {picture}
-      </motion.div>
+        {desktopPicture}
+      </div>
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:min-h-[34rem] lg:grid-cols-2">
           {/* Mobile artwork sits above the copy in normal flow. */}
-          <div className="-mx-4 h-64 sm:-mx-6 sm:h-80 lg:hidden">{picture}</div>
+          <div className="-mx-4 h-72 sm:-mx-6 sm:h-96 lg:hidden">{mobilePicture}</div>
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}

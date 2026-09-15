@@ -60,9 +60,9 @@ export const clinicalServices: ServiceItem[] = [
     body: 'Continuing education and specialty learning that keeps your practice at the leading edge.',
   },
   {
-    title: 'A La Carte Add-Ons',
+    title: 'Bespoke Support',
     body:
-      'Travel medicine, expanded physicals, direct imaging and testing through our SimonMed relationship, and discounted vaccines at group purchasing rates — each practice picks what fits.',
+      'Specialized equipment, including grip-strength testing and spirometry, local vendor partners, and discounted vaccines at group purchasing rates — each practice chooses the support that fits.',
   },
 ];
 
@@ -77,8 +77,9 @@ export const administrativeServices: ServiceItem[] = [
     body: 'Malpractice and business coverage sourced, renewed, and administered on your behalf.',
   },
   {
-    title: 'Recruiting & Hiring',
-    body: 'We recruit, screen, and hire the clinical and front-office staff your practice needs to run well.',
+    title: 'Recruiting Support',
+    body:
+      'Our proprietary recruiting resources and pipeline help you identify the best clinical and front-office staff your practice needs to run well.',
   },
   {
     title: 'Vendor Management',

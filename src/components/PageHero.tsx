@@ -13,6 +13,8 @@ type PageHeroProps = {
   imageAlt?: string;
   /** object-position utility for the banner crop, e.g. "object-bottom". */
   imagePosition?: string;
+  /** Removes the separator when the next section should flow directly from the hero. */
+  divider?: boolean;
 };
 
 /**
@@ -28,9 +30,10 @@ function PageHero({
   imageMobile,
   imageAlt = '',
   imagePosition = 'object-center',
+  divider = true,
 }: PageHeroProps) {
   return (
-    <section className="border-b border-navy/10 bg-white">
+    <section className={`${divider ? 'border-b border-navy/10' : ''} bg-white`}>
       {image && (
         <div className="relative h-[32vh] min-h-[240px] w-full overflow-hidden md:h-auto md:aspect-[21/9] md:max-h-[60vh]">
           <picture>

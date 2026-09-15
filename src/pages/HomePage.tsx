@@ -9,8 +9,8 @@ import ComparisonTable from '@/components/ComparisonTable';
 import Reveal from '@/components/Reveal';
 import { rise } from '@/lib/motion';
 import { PrimaryLink, OutlineLink, TextLink } from '@/components/Buttons';
-import networkDesktop from '@/assets/hero-network.webp';
-import networkMobile from '@/assets/hero-network-sm.webp';
+import networkDesktop from '@/assets/hero-network-2026.webp';
+import networkMobile from '@/assets/hero-network-mobile-2026.webp';
 import { partners } from '@/content/blueangel';
 
 const pillars = [
@@ -44,9 +44,9 @@ function HomePage() {
       <Header />
 
       <main>
-        {/* Hero: full-bleed network-of-practices watercolour with an overlapping panel */}
-        <section className="relative bg-white">
-          <div className="relative h-[62vh] min-h-[420px] w-full overflow-hidden md:h-[76vh]">
+        {/* The opening view keeps the full cover art and message card together. */}
+        <section className="relative isolate flex min-h-[calc(100svh-5rem)] overflow-hidden bg-white">
+          <div className="absolute inset-0">
             <picture>
               <source media="(max-width: 768px)" srcSet={networkMobile} />
               <img
@@ -56,16 +56,15 @@ function HomePage() {
                 loading="eager"
               />
             </picture>
-            <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-white/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/5 to-transparent" />
           </div>
 
-          {/* Panel deliberately overlaps the image so the section reads as layered */}
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl items-end px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative -mt-24 max-w-3xl bg-white p-8 shadow-[0_20px_60px_rgba(6,56,98,0.13)] sm:p-12 md:-mt-32 lg:p-14"
+              className="w-full max-w-3xl bg-white/95 p-7 shadow-[0_20px_60px_rgba(6,56,98,0.13)] backdrop-blur-[2px] sm:p-10 lg:p-12"
             >
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
                 Blue Angel Clinical Partners
@@ -76,7 +75,7 @@ function HomePage() {
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-foreground/80">
                 We give independent practices the financial and operational backing of a
-                large group, while the medicine and the patient relationships stay exactly
+                large group, while patient relations stay with the physicians, exactly
                 where they belong.
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
@@ -134,11 +133,10 @@ function HomePage() {
                     Current partners
                   </span>
                   <span className="mt-4 block font-serif text-2xl leading-snug text-navy sm:text-3xl">
-                    Two independent practices have already chosen partnership over
-                    acquisition.
+                    Two practices have chosen to join the Blue Angel network.
                   </span>
                   <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-steely-blue transition-colors group-hover:text-navy">
-                    Meet Dr. Daniher and Dr. Sujansky
+                    Meet our partners
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </span>
                 </span>

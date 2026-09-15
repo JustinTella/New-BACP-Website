@@ -25,7 +25,7 @@ const resources = [
     label: 'Explore joining',
   },
   {
-    eyebrow: 'For everyone else building this with us',
+    eyebrow: 'For those looking to join the Blue Angel team',
     title: 'Careers',
     body:
       'Clinical and operating roles across the Blue Angel platform and its partner practices, for people who want independent medicine to keep existing.',
@@ -44,6 +44,7 @@ function ResourcesPage() {
         image={resourcesPath}
         imageMobile={resourcesPathSm}
         imageAlt="Watercolour of stone steps climbing a Bay Area hillside toward a glass-fronted concierge practice, the bay and San Francisco skyline beyond"
+        divider={false}
       />
 
       <section className="bg-white py-20 md:py-28">

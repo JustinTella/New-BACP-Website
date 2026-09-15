@@ -1,9 +1,8 @@
 import Page from '@/components/Page';
 import SplitHero from '@/components/SplitHero';
 import Reveal from '@/components/Reveal';
-import CTASection from '@/components/CTASection';
-import { OutlineLink, TextLink } from '@/components/Buttons';
-import { site } from '@/content/blueangel';
+import IntakeForm from '@/components/IntakeForm';
+import { TextLink } from '@/components/Buttons';
 import successionHandover from '@/assets/succession-handover.webp';
 import successionHandoverSm from '@/assets/succession-handover-sm.webp';
 
@@ -62,9 +61,7 @@ function SuccessionPlanningPage() {
         image={successionHandover}
         imageMobile={successionHandoverSm}
         imageAlt="Watercolour of a retiring physician and a younger successor talking together in a light-filled consulting room above the bay"
-      >
-        <OutlineLink to="/be-a-partner">Start the conversation</OutlineLink>
-      </SplitHero>
+      />
 
       {/* The approach, as a stepped timeline rather than a grid of cards */}
       <section className="bg-white py-20 md:py-28">
@@ -91,7 +88,7 @@ function SuccessionPlanningPage() {
                     {step.index}
                   </span>
                   <div>
-                    <h3 className="font-serif text-2xl leading-snug text-navy">
+                    <h3 className="whitespace-nowrap font-serif text-[clamp(1rem,3.5vw,1.5rem)] leading-snug tracking-tight text-navy">
                       {step.title}
                     </h3>
                     <p className="mt-3 text-base leading-relaxed text-foreground/75">
@@ -113,7 +110,7 @@ function SuccessionPlanningPage() {
               Why succession planning with Blue Angel
             </span>
             <h2 className="mt-6 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
-              The value is in the panel you built, not the walls.
+              The preferred partner for your final chapter.
             </h2>
           </Reveal>
 
@@ -136,31 +133,30 @@ function SuccessionPlanningPage() {
             <TextLink to="/about#current-partners">
               Curious? Hear from some of our existing partners
             </TextLink>
+            <TextLink to="/resources/succession-planning-guide" className="mt-5">
+              Read the Blue Angel succession planning guide
+            </TextLink>
           </Reveal>
         </div>
       </section>
 
       {/* Start the conversation */}
-      <section className="bg-white py-20 md:py-24">
+      <section id="succession-intake" className="bg-white py-20 md:py-24">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
+          <Reveal className="max-w-3xl">
             <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
               Start the conversation
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-foreground/80">
-              Reach out to our team directly at:
+              A confidential first conversation can clarify your options, timing, and what
+              a transition designed around your practice could look like.
             </p>
-            <a
-              href={`mailto:${site.email}`}
-              className="mt-4 inline-block font-serif text-2xl text-navy underline decoration-gold decoration-2 underline-offset-8 transition-colors hover:text-steely-blue"
-            >
-              {site.email}
-            </a>
+            <div className="mt-10">
+              <IntakeForm kind="selling" />
+            </div>
           </Reveal>
         </div>
       </section>
-
-      <CTASection />
     </Page>
   );
 }
