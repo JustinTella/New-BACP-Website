@@ -2,7 +2,7 @@ import Page from '@/components/Page';
 import SplitHero from '@/components/SplitHero';
 import Reveal from '@/components/Reveal';
 import IntakeForm from '@/components/IntakeForm';
-import { TextLink } from '@/components/Buttons';
+import { PrimaryLink } from '@/components/Buttons';
 import successionHandover from '@/assets/succession-handover.webp';
 import successionHandoverSm from '@/assets/succession-handover-sm.webp';
 
@@ -78,22 +78,24 @@ function SuccessionPlanningPage() {
           <ol className="mt-16 max-w-4xl">
             {approach.map((step, i) => (
               <Reveal key={step.index} delay={i * 0.07}>
-                <li className="relative grid gap-4 border-l border-navy/15 pb-14 pl-8 last:pb-0 sm:grid-cols-[5rem_1fr] sm:gap-8 sm:pl-12">
+                <li className="relative border-l border-navy/15 pb-12 pl-7 last:pb-0 sm:pl-10">
                   {/* Marker sits on the rule to make the sequence explicit */}
                   <span
                     className="absolute -left-[0.3125rem] top-2 h-2.5 w-2.5 rounded-full bg-gold"
                     aria-hidden
                   />
-                  <span className="font-serif text-4xl leading-none text-navy/25">
-                    {step.index}
-                  </span>
-                  <div>
-                    <h3 className="whitespace-nowrap font-serif text-[clamp(1rem,3.5vw,1.5rem)] leading-snug tracking-tight text-navy">
-                      {step.title}
-                    </h3>
-                    <p className="mt-3 text-base leading-relaxed text-foreground/75">
-                      {step.body}
-                    </p>
+                  <div className="flex items-start gap-4 sm:gap-6">
+                    <span className="w-10 shrink-0 font-serif text-4xl leading-none text-navy/25 sm:w-14">
+                      {step.index}
+                    </span>
+                    <div className="max-w-2xl">
+                      <h3 className="font-serif text-xl leading-snug tracking-tight text-navy sm:whitespace-nowrap sm:text-2xl">
+                        {step.title}
+                      </h3>
+                      <p className="mt-2 text-base leading-relaxed text-foreground/75">
+                        {step.body}
+                      </p>
+                    </div>
                   </div>
                 </li>
               </Reveal>
@@ -130,12 +132,9 @@ function SuccessionPlanningPage() {
           </dl>
 
           <Reveal className="mt-12">
-            <TextLink to="/about#current-partners">
-              Curious? Hear from some of our existing partners
-            </TextLink>
-            <TextLink to="/resources/succession-planning-guide" className="mt-5">
-              Read the Blue Angel succession planning guide
-            </TextLink>
+            <PrimaryLink to="/resources/succession-planning-guide">
+              Read the Blue Angel Succession Planning Guide
+            </PrimaryLink>
           </Reveal>
         </div>
       </section>

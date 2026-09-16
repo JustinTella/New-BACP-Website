@@ -18,13 +18,13 @@ const pillars = [
     index: '01',
     title: 'Clinical autonomy stays with you',
     body:
-      'No corporate protocols and no outside party setting appointment lengths. The medicine, the panel, and the name on the door remain the physicians own.',
+      'No corporate protocols and no outside party dictating your day-to-day. The medicine, panel, and name on the door remain in the hands of our partner physicians.',
   },
   {
     index: '02',
     title: 'We carry the administrative load',
     body:
-      'Billing, credentialing, compliance, staffing and technology move to a team that does this every day, giving physicians their time back.',
+      'Accounting, finances, staffing and technology move to a dedicated team of specialists, letting physicians focus on what matters most: patient care.',
   },
   {
     index: '03',
@@ -59,26 +59,26 @@ function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/5 to-transparent" />
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl items-end px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+          <div className="relative z-10 mx-auto flex w-full max-w-[82rem] items-center px-3 py-6 sm:px-5 sm:py-8 lg:px-7 lg:py-10">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-3xl bg-white/95 p-7 shadow-[0_20px_60px_rgba(6,56,98,0.13)] backdrop-blur-[2px] sm:p-10 lg:p-12"
+              className="w-full max-w-[36rem] bg-white/90 p-5 shadow-[0_20px_60px_rgba(6,56,98,0.13)] backdrop-blur-[2px] sm:p-7 lg:p-9"
             >
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
                 Blue Angel Clinical Partners
               </span>
-              <h1 className="mt-6 font-serif text-4xl leading-[1.08] tracking-tight text-navy sm:text-5xl lg:text-6xl">
+              <h1 className="mt-5 font-serif text-3xl leading-[1.08] tracking-tight text-navy sm:text-4xl lg:text-5xl">
                 Empowering physicians,
                 <span className="block">preserving autonomy.</span>
               </h1>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-foreground/80">
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
                 We give independent practices the financial and operational backing of a
                 large group, while patient relations stay with the physicians, exactly
                 where they belong.
               </p>
-              <div className="mt-9 flex flex-wrap gap-4">
+              <div className="mt-7 flex flex-wrap gap-3">
                 <PrimaryLink to="/be-a-partner">Become a Partner</PrimaryLink>
                 <OutlineLink to="/about">About Blue Angel</OutlineLink>
               </div>
@@ -191,8 +191,11 @@ function HomePage() {
                 Everything a large group gives you. Nothing it takes.
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-foreground/80">
-                Every row below is something we actually do. Follow any of them through to
-                the page that explains it.
+                Blue Angel was built with existing concierge physicians to develop a suite
+                of services that address the most important aspects of running a successful
+                practice. Unlike other alternatives, our partnerships are not
+                one-size-fits-all and are specifically designed so our doctors are the top
+                priority.
               </p>
             </Reveal>
 

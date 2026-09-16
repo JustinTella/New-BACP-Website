@@ -1,15 +1,16 @@
 type SubmissionPayload = Record<string, string>;
 
-const WEB3FORMS_ACCESS_KEY =
-  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '8909fd25-ae7a-4964-a69a-191d9e02e093';
+type SubmissionResult = {
+  success?: boolean;
+  message?: string;
+};
 
-const SITE_NAME = 'Sujansky MD';
+const WEB3FORMS_ACCESS_KEY =
+  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '13983de2-1baf-4984-89f1-680d4a44f62b';
+
+const SITE_NAME = 'Blue Angel Clinical Partners';
 
 export async function submitWebsiteForm(payload: SubmissionPayload) {
-  const taggedSubject = payload.subject
-    ? `[${SITE_NAME}] ${payload.subject}`
-    : `[${SITE_NAME}] New website inquiry`;
-
   const response = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {
@@ -19,15 +20,15 @@ export async function submitWebsiteForm(payload: SubmissionPayload) {
     body: JSON.stringify({
       access_key: WEB3FORMS_ACCESS_KEY,
       ...payload,
-      subject: taggedSubject,
+      from_name: SITE_NAME,
       submitted_from: SITE_NAME,
     }),
   });
 
-  const result = await response.json().catch(() => null);
+  const result = (await response.json().catch(() => null)) as SubmissionResult | null;
 
   if (!response.ok || !result?.success) {
-    throw new Error(result?.message || 'submission-failed');
+    throw new Error(result?.message || 'Unable to send the inquiry.');
   }
 
   return result;

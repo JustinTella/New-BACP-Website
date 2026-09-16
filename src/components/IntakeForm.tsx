@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
-import { site } from '@/content/blueangel';
+import { ArrowUpRight, CheckCircle2, CircleAlert, LoaderCircle } from 'lucide-react';
+import { submitWebsiteForm } from '@/lib/formSubmit';
 
 type IntakeKind = 'selling' | 'joining' | 'careers';
 
@@ -48,15 +48,16 @@ const details = {
 } as const;
 
 /**
- * A static-hosting-safe intake form. GitHub Pages has no server-side form
- * handler, so submission opens a fully populated email for the visitor to
- * review before they choose to send it. The careers form can switch to Ashby
- * by setting VITE_ASHBY_APPLICATION_URL in the deploy environment.
+ * The forms send directly through Web3Forms, which provides serverless delivery
+ * for the static GitHub Pages site. The careers form can switch to Ashby by
+ * setting VITE_ASHBY_APPLICATION_URL in the deploy environment.
  */
 function IntakeForm({ kind }: IntakeFormProps) {
   const content = details[kind];
   const ashbyUrl = import.meta.env.VITE_ASHBY_APPLICATION_URL;
-  const [submitted, setSubmitted] = useState(false);
+  const [submissionState, setSubmissionState] = useState<
+    'idle' | 'submitting' | 'success' | 'error'
+  >('idle');
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -67,26 +68,31 @@ function IntakeForm({ kind }: IntakeFormProps) {
   });
 
   const update = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setSubmissionState('idle');
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const body = [
-      `Name: ${form.name}`,
-      `Email: ${form.email}`,
-      `Phone: ${form.phone || 'Not provided'}`,
-      `${content.contextLabel}: ${form.context}`,
-      `${content.timingLabel}: ${form.timing || 'Not provided'}`,
-      '',
-      `${content.messageLabel}`,
-      form.message,
-    ].join('\n');
+    setSubmissionState('submitting');
 
-    setSubmitted(true);
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-      `${site.name} — ${content.subject}`,
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      await submitWebsiteForm({
+        subject: content.subject,
+        inquiry_type: content.subject,
+        name: form.name,
+        email: form.email,
+        replyto: form.email,
+        phone: form.phone || 'Not provided',
+        [content.contextLabel]: form.context,
+        [content.timingLabel]: form.timing || 'Not provided',
+        [content.messageLabel]: form.message,
+      });
+      setSubmissionState('success');
+      setForm({ name: '', email: '', phone: '', context: '', timing: '', message: '' });
+    } catch {
+      setSubmissionState('error');
+    }
   };
 
   if (kind === 'careers' && ashbyUrl) {
@@ -123,12 +129,21 @@ function IntakeForm({ kind }: IntakeFormProps) {
       </h2>
       <p className="mt-4 text-base leading-relaxed text-foreground/75">{content.intro}</p>
 
-      {submitted && (
+      {submissionState === 'success' && (
         <div className="mt-7 flex gap-3 border-l-2 border-gold bg-light-gray p-5 text-foreground/80">
           <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-navy" aria-hidden />
           <p className="text-base leading-relaxed">
-            Your email app should now be open with this inquiry prepared. Please review and
-            send it when you are ready.
+            Thank you — your inquiry has been sent directly to the Blue Angel team. We will
+            follow up soon.
+          </p>
+        </div>
+      )}
+
+      {submissionState === 'error' && (
+        <div className="mt-7 flex gap-3 border-l-2 border-gold bg-light-gray p-5 text-foreground/80">
+          <CircleAlert className="mt-1 h-5 w-5 shrink-0 text-navy" aria-hidden />
+          <p className="text-base leading-relaxed">
+            We could not send your inquiry just now. Please try again in a moment.
           </p>
         </div>
       )}
@@ -169,13 +184,22 @@ function IntakeForm({ kind }: IntakeFormProps) {
         </label>
         <button
           type="submit"
-          className="inline-flex items-center gap-2 bg-navy px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-steely-blue"
+          disabled={submissionState === 'submitting'}
+          className="inline-flex items-center gap-2 bg-navy px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-steely-blue disabled:cursor-not-allowed disabled:opacity-70"
         >
-          Prepare inquiry email <ArrowUpRight className="h-4 w-4" aria-hidden />
+          {submissionState === 'submitting' ? (
+            <>
+              Sending inquiry <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden />
+            </>
+          ) : (
+            <>
+              Send inquiry <ArrowUpRight className="h-4 w-4" aria-hidden />
+            </>
+          )}
         </button>
         <p className="text-sm leading-relaxed text-foreground/60">
-          This opens a pre-addressed email for you to review before sending. We do not submit
-          your information automatically.
+          Your inquiry is sent directly to the Blue Angel team. We do not open an email app
+          or submit your information automatically until you choose to send it.
         </p>
       </form>
     </div>

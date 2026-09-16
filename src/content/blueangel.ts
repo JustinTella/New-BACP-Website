@@ -24,6 +24,7 @@ export const navLinks = [
       { path: '/resources/succession-planning', label: 'Succession Planning' },
       { path: '/resources/joining-a-practice', label: 'Joining a Practice' },
       { path: '/resources/careers', label: 'Careers' },
+      { path: '/resources/succession-planning-guide', label: 'Succession Planning Guide' },
     ],
   },
   { path: '/blog', label: 'Blog' },
@@ -62,7 +63,7 @@ export const clinicalServices: ServiceItem[] = [
   {
     title: 'Bespoke Support',
     body:
-      'Specialized equipment, including grip-strength testing and spirometry, local vendor partners, and discounted vaccines at group purchasing rates — each practice chooses the support that fits.',
+      'Specialized diagnostic equipment, local vendor partners, discounted vaccine costs, and more — each practice chooses the support that makes sense for them.',
   },
 ];
 

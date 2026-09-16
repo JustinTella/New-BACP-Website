@@ -85,7 +85,9 @@ function AboutBlueAngelPage() {
             <p className="mt-5 text-lg leading-relaxed text-foreground/80">
               We are proud to partner with some of the finest physicians in concierge
               medicine, supporting them in delivering exceptional patient care. Each
-              practice keeps its own name, its own brand, and its own website.
+              practice maintains its independence, while getting access to the benefits of
+              a premier network of clinicians. Each practice keeps its name, brand, and
+              its own clinical practices.
             </p>
           </Reveal>
 
@@ -197,7 +199,7 @@ function AboutBlueAngelPage() {
                   Founder
                 </p>
                 <a
-                  href="https://www.linkedin.com/"
+                  href="https://www.linkedin.com/in/josephnrobillard"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-7 inline-flex w-full items-center justify-center gap-2 border border-navy/30 px-6 py-3.5 text-sm font-medium tracking-wide text-navy transition-colors duration-200 hover:border-navy hover:bg-navy hover:text-white"
