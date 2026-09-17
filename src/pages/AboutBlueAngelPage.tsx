@@ -86,8 +86,8 @@ function AboutBlueAngelPage() {
               We are proud to partner with some of the finest physicians in concierge
               medicine, supporting them in delivering exceptional patient care. Each
               practice maintains its independence, while getting access to the benefits of
-              a premier network of clinicians. Each practice keeps its name, brand, and
-              its own clinical practices.
+              a premier network of clinicians. Each practice keeps its own name, brand,
+              and clinical practices.
             </p>
           </Reveal>
 
@@ -104,7 +104,9 @@ function AboutBlueAngelPage() {
                     <img
                       src={partner.image}
                       alt={partner.alt}
-                      loading="lazy"
+                      loading="eager"
+                      decoding="async"
+                      fetchpriority="low"
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
@@ -172,7 +174,9 @@ function AboutBlueAngelPage() {
                   <img
                     src={logo.src}
                     alt={logo.name}
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
+                    fetchpriority="low"
                     className="max-h-14 w-auto max-w-[10rem] object-contain opacity-80 transition-opacity duration-300 hover:opacity-100"
                   />
                 </div>
@@ -191,7 +195,9 @@ function AboutBlueAngelPage() {
                 <img
                   src={josephPortrait}
                   alt="Portrait of Joseph Robillard, founder of Blue Angel Clinical Partners"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="low"
                   className="aspect-[4/5] w-full object-cover"
                 />
                 <h3 className="mt-8 font-serif text-2xl text-navy">Meet Joseph</h3>

@@ -9,27 +9,27 @@ import successionHandoverSm from '@/assets/succession-handover-sm.webp';
 const approach = [
   {
     index: '01',
-    title: 'Two-Step Sale',
+    title: 'The First Bite',
     body:
       'Receive upfront liquidity for your practice, followed by a mutually agreed transition plan that suits your timeline.',
   },
   {
     index: '02',
-    title: 'Seamless Physician Transition',
+    title: 'Operational Continuity',
     body:
-      'Blue Angel recruits, trains, and transitions in a new associate physician to take over your practice seamlessly.',
+      'Blue Angel documents, studies, and assumes administrative practices so the business continues as usual in preparation for departure.',
   },
   {
     index: '03',
-    title: 'Patient Care Continuity',
+    title: 'Seamless Physician Transition',
     body:
       'Your patients receive uninterrupted, high-quality care from a trusted successor, ensuring your legacy is honored.',
   },
   {
     index: '04',
-    title: 'Flexible Involvement',
+    title: 'Graceful Exit',
     body:
-      'You can choose to keep practicing during the handoff period, ensuring a smooth and gradual transition for everyone.',
+      'Once everyone feels ready, you have the option to sell your remaining ownership and capture the full value of what you built.',
   },
 ];
 
@@ -147,7 +147,7 @@ function SuccessionPlanningPage() {
       {/* Start the conversation */}
       <section id="succession-intake" className="bg-white py-20 md:py-24">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-3xl">
+          <Reveal className="mx-auto max-w-3xl">
             <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
               Start the conversation
             </h2>

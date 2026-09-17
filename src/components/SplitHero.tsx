@@ -41,6 +41,7 @@ function SplitHero({
         src={image}
         alt={imageAlt}
         loading="eager"
+        fetchpriority="high"
         className="h-full w-full object-cover"
       />
     </picture>
@@ -51,7 +52,7 @@ function SplitHero({
   const desktopPicture = (
     <picture aria-hidden="true">
       {imageMobile && <source media="(max-width: 768px)" srcSet={imageMobile} />}
-      <img src={image} alt="" loading="eager" className="h-full w-full object-cover" />
+      <img src={image} alt="" loading="eager" fetchpriority="high" className="h-full w-full object-cover" />
     </picture>
   );
 

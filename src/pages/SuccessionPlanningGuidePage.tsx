@@ -94,7 +94,7 @@ function SuccessionPlanningGuidePage() {
 
       <section className="border-t border-navy/10 bg-light-gray py-20 md:py-24">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
+          <div className="mx-auto max-w-3xl">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
               Ready when you are
             </span>
@@ -102,7 +102,7 @@ function SuccessionPlanningGuidePage() {
               Start a confidential conversation.
             </h2>
           </div>
-          <div className="mt-10 max-w-3xl">
+          <div className="mx-auto mt-10 max-w-3xl">
             <IntakeForm kind="selling" />
           </div>
         </div>

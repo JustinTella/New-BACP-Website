@@ -61,7 +61,9 @@ function ServicesPage() {
               <img
                 src={servicesDesk}
                 alt="Watercolour of a physician working at a desk in a light-filled practice office, the bay and San Francisco skyline through tall windows"
-                loading="lazy"
+                loading="eager"
+                decoding="async"
+                fetchpriority="low"
                 className="aspect-square w-full object-cover shadow-[0_20px_60px_rgba(6,56,98,0.13)]"
               />
             </Reveal>
@@ -117,9 +119,9 @@ function ServicesPage() {
             <Reveal delay={0.1}>
               <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
                 <p>
-                  Unlike our competitors or alternatives, there is no one-size-fits-all
-                  partnership structure. Each agreement is tailored to what makes sense for
-                  you. We&rsquo;re proud to help practice owners fairly monetize the value of
+                  Unlike other alternatives, there is no one-size-fits-all structure at
+                  Blue Angel Clinical Partners. Each agreement is tailored to what makes
+                  sense for you. We&rsquo;re proud to help practice owners fairly monetize the value of
                   what they&rsquo;ve built. Most of a physician&rsquo;s net worth sits
                   inside a practice that is difficult to sell and easy to undervalue. We
                   capture the full financial value of the patient panel and the goodwill

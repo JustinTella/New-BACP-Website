@@ -104,7 +104,7 @@ function JoiningPracticePage() {
 
       <section id="joining-intake" className="bg-white py-20 md:py-24">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-3xl">
+          <Reveal className="mx-auto max-w-3xl">
             <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
               Start the conversation
             </h2>

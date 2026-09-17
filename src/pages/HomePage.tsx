@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
 import ComparisonTable from '@/components/ComparisonTable';
 import Reveal from '@/components/Reveal';
+import NetworkMotif from '@/components/NetworkMotif';
 import { rise } from '@/lib/motion';
 import { PrimaryLink, OutlineLink, TextLink } from '@/components/Buttons';
 import networkDesktop from '@/assets/hero-network-2026.webp';
@@ -54,20 +55,32 @@ function HomePage() {
                 alt="Watercolour of independent concierge practices across the Bay Area, linked by glowing lines, with the San Francisco skyline and Bay Bridge beyond"
                 className="h-full w-full object-cover"
                 loading="eager"
+                fetchpriority="high"
               />
             </picture>
             <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/5 to-transparent" />
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full max-w-[82rem] items-center px-3 py-6 sm:px-5 sm:py-8 lg:px-7 lg:py-10">
+          {/* Below 1920px this is the live site's column exactly — a centred
+              1312px (82rem) block with 28px padding — so the card lands where
+              it does on the deployed site: 84px from the left at 1440, 324px at
+              1920. Written in px, not rem, because the root size scales above
+              1600px and would otherwise shift these off the live numbers.
+
+              From 1920px up it holds that same share of the screen, 16.875vw,
+              which is exactly 324px at 1920 so the two rules meet without a
+              jump. On the live site the gap instead keeps growing with the
+              centred column and reaches 644px at 2560, which pushes the card
+              far into the middle of the artwork. */}
+          <div className="relative z-10 mx-auto flex w-full max-w-[1312px] items-center px-3 py-6 sm:px-5 sm:py-8 lg:px-[28px] lg:py-10 min-[1920px]:mx-0 min-[1920px]:max-w-none min-[1920px]:pl-[16.875vw]">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-[30rem] bg-white/90 p-5 shadow-[0_20px_60px_rgba(6,56,98,0.13)] backdrop-blur-[2px] sm:p-6 lg:p-7"
+              className="w-full max-w-[30rem] bg-white/70 p-5 shadow-[0_20px_60px_rgba(6,56,98,0.13)] backdrop-blur-[3px] sm:p-6 lg:p-7"
             >
               {/* Arbitrary sizes here on purpose: index.css enlarges `main .text-xs`
-                  and `main p` site-wide, which would override the standard classes. */}
+                and `main p` site-wide, which would override the standard classes. */}
               <span className="text-[0.875rem] font-semibold uppercase tracking-[0.2em] text-steely-blue">
                 Blue Angel Clinical Partners
               </span>
@@ -89,8 +102,9 @@ function HomePage() {
         </section>
 
         {/* Positioning statement */}
-        <section className="bg-white py-20 md:py-28">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden bg-white py-20 md:py-28">
+          <NetworkMotif variant="a" className="opacity-[0.35]" />
+          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div {...rise} className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
               <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
                 A partner built for independent medicine
@@ -123,7 +137,9 @@ function HomePage() {
                       src={partner.image}
                       alt=""
                       aria-hidden
-                      loading="lazy"
+                      loading="eager"
+                      decoding="async"
+                      fetchpriority="low"
                       className={`h-20 w-20 rounded-full border-2 border-white object-cover shadow-sm sm:h-24 sm:w-24 ${
                         i > 0 ? '-ml-6' : ''
                       }`}
@@ -148,8 +164,9 @@ function HomePage() {
         </section>
 
         {/* Three pillars */}
-        <section className="border-y border-navy/10 bg-light-gray py-20 md:py-28">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden border-y border-navy/10 bg-light-gray py-20 md:py-28">
+          <NetworkMotif variant="b" className="opacity-30" />
+          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.span
               {...rise}
               className="block text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue"
@@ -183,8 +200,9 @@ function HomePage() {
         </section>
 
         {/* Comparison — doubles as a summary of the services and resources pages */}
-        <section className="bg-white py-20 md:py-28">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden bg-white py-20 md:py-28">
+          <NetworkMotif variant="c" className="opacity-25" />
+          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
                 Compare the options

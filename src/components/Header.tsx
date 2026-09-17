@@ -67,6 +67,8 @@ function Header() {
           <img
             src={logoImage}
             alt="Blue Angel Clinical Partners"
+            loading="eager"
+            fetchpriority="high"
             className="h-9 w-auto sm:h-10"
           />
         </Link>

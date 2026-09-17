@@ -14,6 +14,38 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * Large-monitor scaling.
+ *
+ * The layout is sized in rem throughout — the page container is 80rem, and
+ * type and spacing follow Tailwind's rem scale — so raising the root font size
+ * grows the container, the type and the whitespace together, in proportion.
+ * Without this the site sits in a fixed 1280px column and fills only half of a
+ * 2560px display.
+ *
+ * Tailwind's breakpoints are declared in px, so they are unaffected and the
+ * responsive layout still switches at the same widths. Nothing changes below
+ * 1600px, which leaves laptops exactly as they were.
+ */
+@media (min-width: 1600px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+/*
+ * From 1920px the root size tracks the viewport instead of stepping, so the
+ * whole layout scales in proportion rather than staying a fixed size in an
+ * ever-larger window. 0.8854vw resolves to 17px at exactly 1920px, which is
+ * what the step below it produces, so there is no jump at the boundary. The
+ * clamp stops ultrawide displays from running away with it.
+ */
+@media (min-width: 1920px) {
+  html {
+    font-size: clamp(17px, 0.8854vw, 26px);
+  }
+}
+
 @layer base {
   :root {
     --background: 30 8% 95%;
