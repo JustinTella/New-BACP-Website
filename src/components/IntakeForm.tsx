@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, CheckCircle2, CircleAlert, LoaderCircle } from 'lucide-react';
 import { submitWebsiteForm } from '@/lib/formSubmit';
 
@@ -49,15 +49,17 @@ const details = {
 
 /**
  * The forms send directly through Web3Forms, which provides serverless delivery
- * for the static GitHub Pages site. The careers form can switch to Ashby by
- * setting VITE_ASHBY_APPLICATION_URL in the deploy environment.
+ * for the static GitHub Pages site. Each kind posts to its own inbox — see
+ * src/lib/formSubmit.ts. Job applications run through Ashby instead, so the
+ * careers form here is only for people who do not see a role that fits.
  */
 function IntakeForm({ kind }: IntakeFormProps) {
   const content = details[kind];
-  const ashbyUrl = import.meta.env.VITE_ASHBY_APPLICATION_URL;
   const [submissionState, setSubmissionState] = useState<
     'idle' | 'submitting' | 'success' | 'error'
   >('idle');
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -77,47 +79,27 @@ function IntakeForm({ kind }: IntakeFormProps) {
     setSubmissionState('submitting');
 
     try {
-      await submitWebsiteForm({
-        subject: content.subject,
-        inquiry_type: content.subject,
-        name: form.name,
-        email: form.email,
-        replyto: form.email,
-        phone: form.phone || 'Not provided',
-        [content.contextLabel]: form.context,
-        [content.timingLabel]: form.timing || 'Not provided',
-        [content.messageLabel]: form.message,
-      });
+      await submitWebsiteForm(
+        {
+          subject: content.subject,
+          inquiry_type: content.subject,
+          name: form.name,
+          email: form.email,
+          replyto: form.email,
+          phone: form.phone || 'Not provided',
+          [content.contextLabel]: form.context,
+          [content.timingLabel]: form.timing || 'Not provided',
+          [content.messageLabel]: form.message,
+        },
+        kind,
+      );
       setSubmissionState('success');
+      setShowConfirmation(true);
       setForm({ name: '', email: '', phone: '', context: '', timing: '', message: '' });
     } catch {
       setSubmissionState('error');
     }
   };
-
-  if (kind === 'careers' && ashbyUrl) {
-    return (
-      <div className="border border-navy/10 bg-white p-8 shadow-[0_20px_60px_rgba(6,56,98,0.08)] sm:p-10">
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
-          {content.label}
-        </span>
-        <h2 className="mt-5 font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
-          See open roles in Ashby.
-        </h2>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-foreground/80">
-          Review current openings and submit an application through our careers portal.
-        </p>
-        <a
-          href={ashbyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 inline-flex items-center gap-2 bg-navy px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-steely-blue"
-        >
-          View open positions <ArrowUpRight className="h-4 w-4" aria-hidden />
-        </a>
-      </div>
-    );
-  }
 
   return (
     <div className="border border-navy/10 bg-white p-6 shadow-[0_20px_60px_rgba(6,56,98,0.08)] sm:p-8 lg:p-10">
@@ -128,16 +110,6 @@ function IntakeForm({ kind }: IntakeFormProps) {
         {content.title}
       </h2>
       <p className="mt-4 text-base leading-relaxed text-foreground/75">{content.intro}</p>
-
-      {submissionState === 'success' && (
-        <div className="mt-7 flex gap-3 border-l-2 border-gold bg-light-gray p-5 text-foreground/80">
-          <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-navy" aria-hidden />
-          <p className="text-base leading-relaxed">
-            Thank you — your inquiry has been sent directly to the Blue Angel team. We will
-            follow up soon.
-          </p>
-        </div>
-      )}
 
       {submissionState === 'error' && (
         <div className="mt-7 flex gap-3 border-l-2 border-gold bg-light-gray p-5 text-foreground/80">
@@ -154,14 +126,13 @@ function IntakeForm({ kind }: IntakeFormProps) {
           <Field label="Email address" name="email" type="email" value={form.email} onChange={update} required />
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Phone number" name="phone" type="tel" value={form.phone} onChange={update} />
+          <Field label="Phone number" name="phone" type="tel" value={form.phone} onChange={update} required />
           <Field
             label={content.contextLabel}
             name="context"
             value={form.context}
             onChange={update}
             placeholder={content.contextPlaceholder}
-            required
           />
         </div>
         <Field
@@ -197,11 +168,70 @@ function IntakeForm({ kind }: IntakeFormProps) {
             </>
           )}
         </button>
-        <p className="text-sm leading-relaxed text-foreground/60">
-          Your inquiry is sent directly to the Blue Angel team. We do not open an email app
-          or submit your information automatically until you choose to send it.
-        </p>
       </form>
+
+      {showConfirmation && (
+        <ConfirmationDialog
+          closeButtonRef={closeButtonRef}
+          onClose={() => setShowConfirmation(false)}
+        />
+      )}
+    </div>
+  );
+}
+
+/**
+ * Confirms a successful send. Closes on Escape or on a click outside the panel,
+ * and takes focus on open so keyboard users are not left behind the dialog.
+ */
+function ConfirmationDialog({
+  onClose,
+  closeButtonRef,
+}: {
+  onClose: () => void;
+  closeButtonRef: React.RefObject<HTMLButtonElement>;
+}) {
+  useEffect(() => {
+    closeButtonRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [onClose, closeButtonRef]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/40 p-4 backdrop-blur-[2px]"
+      onClick={onClose}
+    >
+      <div
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="intake-confirm-title"
+        onClick={(event) => event.stopPropagation()}
+        className="w-full max-w-md border-t-2 border-gold bg-white p-8 text-center shadow-[0_30px_80px_rgba(6,56,98,0.25)] sm:p-10"
+      >
+        <CheckCircle2 className="mx-auto h-10 w-10 text-navy" aria-hidden />
+        <h2
+          id="intake-confirm-title"
+          className="mt-5 font-serif text-2xl leading-tight tracking-tight text-navy sm:text-3xl"
+        >
+          Thank you.
+        </h2>
+        <p className="mt-4 text-base leading-relaxed text-foreground/75">
+          Your inquiry has been sent to the Blue Angel team. We will follow up with you
+          soon.
+        </p>
+        <button
+          ref={closeButtonRef}
+          type="button"
+          onClick={onClose}
+          className="mt-8 inline-flex items-center gap-2 bg-navy px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-steely-blue"
+        >
+          Close
+        </button>
+      </div>
     </div>
   );
 }
