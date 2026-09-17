@@ -75,20 +75,25 @@ function SuccessionPlanningPage() {
             </h2>
           </Reveal>
 
-          <ol className="mt-16 max-w-4xl">
+          {/* The rule lives on the <ol>, not on each step, so it runs as one
+              unbroken line. Each <li> must be a direct child of the list: when
+              the animation wrapper sat outside it, every step matched `last:` and
+              lost its spacing, so the steps ran into each other. */}
+          <ol className="mt-16 space-y-12 border-l border-navy/15">
             {approach.map((step, i) => (
-              <Reveal key={step.index} delay={i * 0.07}>
-                <li className="relative border-l border-navy/15 pb-12 pl-7 last:pb-0 sm:pl-10">
-                  {/* Marker sits on the rule to make the sequence explicit */}
-                  <span
-                    className="absolute -left-[0.3125rem] top-2 h-2.5 w-2.5 rounded-full bg-gold"
-                    aria-hidden
-                  />
+              <li key={step.index} className="relative pl-7 sm:pl-10">
+                {/* Marker sits on the rule to make the sequence explicit */}
+                <span
+                  className="absolute -left-[0.3125rem] top-2 h-2.5 w-2.5 rounded-full bg-gold"
+                  aria-hidden
+                />
+                <Reveal delay={i * 0.07}>
                   <div className="flex items-start gap-4 sm:gap-6">
                     <span className="w-10 shrink-0 font-serif text-4xl leading-none text-navy/25 sm:w-14">
                       {step.index}
                     </span>
-                    <div className="max-w-2xl">
+                    {/* Uncapped so each description runs the full width of the page */}
+                    <div className="min-w-0 flex-1">
                       <h3 className="font-serif text-xl leading-snug tracking-tight text-navy sm:whitespace-nowrap sm:text-2xl">
                         {step.title}
                       </h3>
@@ -97,8 +102,8 @@ function SuccessionPlanningPage() {
                       </p>
                     </div>
                   </div>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ol>
         </div>

@@ -64,21 +64,23 @@ function HomePage() {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-[36rem] bg-white/90 p-5 shadow-[0_20px_60px_rgba(6,56,98,0.13)] backdrop-blur-[2px] sm:p-7 lg:p-9"
+              className="w-full max-w-[30rem] bg-white/90 p-5 shadow-[0_20px_60px_rgba(6,56,98,0.13)] backdrop-blur-[2px] sm:p-6 lg:p-7"
             >
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">
+              {/* Arbitrary sizes here on purpose: index.css enlarges `main .text-xs`
+                  and `main p` site-wide, which would override the standard classes. */}
+              <span className="text-[0.875rem] font-semibold uppercase tracking-[0.2em] text-steely-blue">
                 Blue Angel Clinical Partners
               </span>
-              <h1 className="mt-5 font-serif text-3xl leading-[1.08] tracking-tight text-navy sm:text-4xl lg:text-5xl">
+              <h1 className="mt-4 font-serif text-2xl leading-[1.08] tracking-tight text-navy sm:text-3xl lg:text-4xl">
                 Empowering physicians,
                 <span className="block">preserving autonomy.</span>
               </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+              <p className="hero-text mt-4 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-[1.0625rem]">
                 We give independent practices the financial and operational backing of a
                 large group, while patient relations stay with the physicians, exactly
                 where they belong.
               </p>
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <PrimaryLink to="/be-a-partner">Become a Partner</PrimaryLink>
                 <OutlineLink to="/about">About Blue Angel</OutlineLink>
               </div>
