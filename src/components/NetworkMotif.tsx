@@ -1,92 +1,145 @@
-import arch from '@/assets/network-arc-arch.webp';
-import archSoft from '@/assets/network-arc-arch-soft.webp';
-import sweep from '@/assets/network-arc-sweep.webp';
-import sweepSoft from '@/assets/network-arc-sweep-soft.webp';
+import { useId } from 'react';
 
 type Point = readonly [number, number];
 type Variant = 'a' | 'b' | 'c' | 'partner';
 
-// Measured centers of the glowing dots in the supplied 2172 x 724 artwork.
-// Using the endpoints to position each image makes adjoining arcs meet at
-// the same dot, while retaining the original texture and proportions.
-const artwork = {
-  arch: { src: arch, start: [188, 556], end: [2002, 531] },
-  archSoft: { src: archSoft, start: [225, 559], end: [2000, 468] },
-  sweep: { src: sweep, start: [140, 600], end: [2054, 280] },
-  sweepSoft: { src: sweepSoft, start: [278, 611], end: [1993, 214] },
-} as const;
+/** A run of connected nodes, drawn as one continuous line. */
+type Chain = {
+  points: Point[];
+  /** Relative weight — the secondary chain in each frame sits further back. */
+  depth?: 'front' | 'back';
+};
 
-type Link = { art: keyof typeof artwork; from: number; to: number };
-type Composition = { nodes: Point[]; links: Link[] };
+type Composition = { viewBox: string; chains: Chain[] };
 
-const variants: Record<Variant, Composition> = {
+/**
+ * The glowing link-and-node motif from the hero painting, redrawn as a
+ * background texture.
+ *
+ * Two rules give it the character the artwork has. First, every chain starts
+ * and ends outside the frame, so the lines read as a fragment of a much larger
+ * network passing behind the page rather than a graphic sitting inside a box.
+ * Second, the strokes do not scale: `non-scaling-stroke` holds them at a
+ * hairline whatever the viewport, so they stay a whisper on a large monitor
+ * instead of thickening into a diagram.
+ *
+ * Colours are sampled from the arcs in the original artwork -- #BCE5FA through
+ * the core of the stroke, #80BEEE in the halo around it.
+ */
+const compositions: Record<Variant, Composition> = {
   a: {
-    nodes: [[70, 300], [1180, 70], [1340, 350]],
-    links: [
-      { art: 'sweep', from: 0, to: 1 },
-      { art: 'archSoft', from: 1, to: 2 },
-      { art: 'arch', from: 0, to: 2 },
+    viewBox: '0 0 1440 720',
+    chains: [
+      { points: [[-240, 486], [300, 330], [762, 474], [1182, 252], [1704, 336]] },
+      { points: [[-200, 150], [420, 252], [1020, 96], [1640, 234]], depth: 'back' },
     ],
   },
   b: {
-    nodes: [[85, 650], [720, 70], [1360, 630]],
-    links: [
-      { art: 'archSoft', from: 0, to: 1 },
-      { art: 'sweepSoft', from: 1, to: 2 },
-      { art: 'arch', from: 0, to: 2 },
+    viewBox: '0 0 1440 720',
+    chains: [
+      { points: [[-220, 564], [426, 378], [900, 522], [1386, 300], [1720, 372]] },
+      { points: [[-180, 246], [540, 132], [1140, 288], [1680, 150]], depth: 'back' },
     ],
   },
   c: {
-    nodes: [[75, 640], [660, 350], [1360, 580]],
-    links: [
-      { art: 'sweepSoft', from: 0, to: 1 },
-      { art: 'arch', from: 1, to: 2 },
-      { art: 'archSoft', from: 0, to: 2 },
+    viewBox: '0 0 1440 720',
+    chains: [
+      { points: [[-200, 186], [480, 384], [1020, 192], [1660, 420]] },
+      { points: [[-160, 606], [560, 486], [1140, 618], [1700, 498]], depth: 'back' },
     ],
   },
   partner: {
-    nodes: [[28, 360], [725, 390], [1390, 310]],
-    links: [
-      { art: 'arch', from: 0, to: 1 },
-      { art: 'sweep', from: 1, to: 2 },
-      { art: 'archSoft', from: 0, to: 2 },
+    viewBox: '0 0 1440 480',
+    chains: [
+      { points: [[-220, 330], [414, 180], [978, 324], [1656, 156]] },
+      { points: [[-180, 96], [600, 246], [1260, 108], [1680, 210]], depth: 'back' },
     ],
   },
 };
 
+/** Narrow frame: the same idea turned to run down the page instead of across. */
 const mobile: Composition = {
-  nodes: [[22, 210], [370, 350], [50, 710]],
-  links: [
-    { art: 'arch', from: 0, to: 1 },
-    { art: 'sweepSoft', from: 1, to: 2 },
+  viewBox: '0 0 400 800',
+  chains: [
+    { points: [[-70, 130], [232, 296], [96, 528], [356, 700], [300, 910]] },
+    { points: [[470, 210], [270, 430], [420, 640]], depth: 'back' },
   ],
 };
 
-function alignEndpoints(art: keyof typeof artwork, from: Point, to: Point) {
-  const { start, end } = artwork[art];
-  const sx = end[0] - start[0];
-  const sy = end[1] - start[1];
-  const dx = to[0] - from[0];
-  const dy = to[1] - from[1];
-  const lengthSquared = sx * sx + sy * sy;
-  const a = (dx * sx + dy * sy) / lengthSquared;
-  const b = (dy * sx - dx * sy) / lengthSquared;
-  const tx = from[0] - a * start[0] + b * start[1];
-  const ty = from[1] - b * start[0] - a * start[1];
+/**
+ * Catmull-Rom through the nodes, converted to cubic beziers. Curving through
+ * the points rather than between them keeps the line continuous and lets each
+ * node sit exactly on it, the way the painted arcs meet at their dots.
+ */
+function smoothPath(points: Point[], tension = 0.9) {
+  if (points.length < 2) return '';
 
-  return `matrix(${a} ${b} ${-b} ${a} ${tx} ${ty})`;
+  const padded = [points[0], ...points, points[points.length - 1]];
+  const round = (n: number) => Math.round(n * 100) / 100;
+  let d = `M ${round(points[0][0])} ${round(points[0][1])}`;
+
+  for (let i = 1; i < padded.length - 2; i += 1) {
+    const [x0, y0] = padded[i - 1];
+    const [x1, y1] = padded[i];
+    const [x2, y2] = padded[i + 1];
+    const [x3, y3] = padded[i + 2];
+
+    const c1x = x1 + ((x2 - x0) / 6) * tension;
+    const c1y = y1 + ((y2 - y0) / 6) * tension;
+    const c2x = x2 - ((x3 - x1) / 6) * tension;
+    const c2y = y2 - ((y3 - y1) / 6) * tension;
+
+    d += ` C ${round(c1x)} ${round(c1y)}, ${round(c2x)} ${round(c2y)}, ${round(x2)} ${round(y2)}`;
+  }
+
+  return d;
 }
 
-function Connections({ nodes, links }: Composition) {
-  return links.map(({ art, from, to }) => (
-    <image
-      key={`${from}-${to}`}
-      href={artwork[art].src}
-      width="2172"
-      height="724"
-      transform={alignEndpoints(art, nodes[from], nodes[to])}
-    />
-  ));
+/** Only the nodes inside the frame get a dot; the rest are past the edge. */
+function visibleNodes(points: Point[], viewBox: string) {
+  const [, , width, height] = viewBox.split(' ').map(Number);
+  return points.filter(([x, y]) => x > 12 && x < width - 12 && y > 12 && y < height - 12);
+}
+
+function Chains({ viewBox, chains }: Composition) {
+  return (
+    <>
+      {chains.map((chain) => {
+        const back = chain.depth === 'back';
+        const d = smoothPath(chain.points);
+
+        return (
+          <g key={d} opacity={back ? 0.55 : 1}>
+            {/* Wide, faint pass reads as the glow around the line */}
+            <path
+              d={d}
+              fill="none"
+              stroke="#80BEEE"
+              strokeWidth={back ? 4 : 6}
+              strokeOpacity={0.2}
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d={d}
+              fill="none"
+              stroke="#BCE5FA"
+              strokeWidth={back ? 0.75 : 1}
+              strokeOpacity={0.9}
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+            {visibleNodes(chain.points, viewBox).map(([cx, cy]) => (
+              <g key={`${cx}-${cy}`}>
+                <circle cx={cx} cy={cy} r={back ? 6 : 8} fill="#80BEEE" fillOpacity={0.18} />
+                <circle cx={cx} cy={cy} r={back ? 1.6 : 2.2} fill="#DCF2FD" fillOpacity={0.95} />
+              </g>
+            ))}
+          </g>
+        );
+      })}
+    </>
+  );
 }
 
 type NetworkMotifProps = {
@@ -95,28 +148,68 @@ type NetworkMotifProps = {
   className?: string;
 };
 
+/**
+ * The drawing spans the full width of its section and keeps its own
+ * proportions, so it is the left and right edges that cut the lines -- they
+ * enter and leave the frame rather than ending inside it.
+ *
+ * Height deliberately follows from the width instead of filling the section.
+ * Stretching to fill would zoom a tall section's drawing to twice its size and
+ * show only a fragment of it; this way a tall section simply gets the motif as
+ * a band across its middle, at the weight every other section has.
+ */
+function MotifSvg({
+  composition,
+  glowId,
+  className,
+}: {
+  composition: Composition;
+  glowId: string;
+  className: string;
+}) {
+  return (
+    <svg
+      viewBox={composition.viewBox}
+      preserveAspectRatio="xMidYMid meet"
+      className={className}
+      focusable="false"
+    >
+      <defs>
+        <filter id={glowId} x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.5" result="blurred" />
+          <feMerge>
+            <feMergeNode in="blurred" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <g filter={`url(#${glowId})`}>
+        <Chains {...composition} />
+      </g>
+    </svg>
+  );
+}
+
 function NetworkMotif({ variant = 'a', className = '' }: NetworkMotifProps) {
+  // Filter ids must be unique or several instances on one page collide, and
+  // the two breakpoint frames each carry their own copy.
+  const id = useId().replace(/:/g, '');
+
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute inset-0 select-none overflow-hidden ${className}`}
+      className={`pointer-events-none absolute inset-0 flex select-none items-center overflow-hidden ${className}`}
     >
-      <svg
-        viewBox={variant === 'partner' ? '0 0 1440 480' : '0 0 1440 720'}
-        preserveAspectRatio="xMidYMid meet"
-        className="hidden h-full w-full md:block"
-        focusable="false"
-      >
-        <Connections {...variants[variant]} />
-      </svg>
-      <svg
-        viewBox="0 0 400 800"
-        preserveAspectRatio="xMidYMid meet"
-        className="h-full w-full opacity-70 md:hidden"
-        focusable="false"
-      >
-        <Connections {...mobile} />
-      </svg>
+      <MotifSvg
+        composition={compositions[variant]}
+        glowId={`motif-glow-${id}`}
+        className="hidden h-auto w-full md:block"
+      />
+      <MotifSvg
+        composition={mobile}
+        glowId={`motif-glow-m-${id}`}
+        className="h-auto w-full opacity-80 md:hidden"
+      />
     </div>
   );
 }
