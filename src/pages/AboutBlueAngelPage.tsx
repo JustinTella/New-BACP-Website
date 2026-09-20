@@ -182,6 +182,15 @@ function AboutBlueAngelPage() {
                 </div>
               </Reveal>
             ))}
+            {/* The logos are a selection, not the whole list, and removing Anovia
+                Health left the last cell of the grid empty (Joseph, 2026-09-18). */}
+            <Reveal delay={investorLogos.length * 0.04} className="h-full">
+              <div className="grid h-full place-items-center bg-white px-6 py-10">
+                <span className="text-center font-serif text-xl leading-snug text-navy/60">
+                  and many more
+                </span>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>

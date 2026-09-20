@@ -213,7 +213,8 @@ export const partners = [
 /* Investors and founder background                                    */
 /* ------------------------------------------------------------------ */
 
-import invAnovia from '@/assets/bacp/inv-anovia-health.png';
+/* Anovia Health was removed at the operator's request, 2026-09-18. The asset is
+   left in place in case it is ever reinstated. */
 import invMetroVein from '@/assets/bacp/inv-metro-vein-centers.jpg';
 import invHarleyStreet from '@/assets/bacp/inv-harley-street-medical.jpg';
 import invHealthBridge from '@/assets/bacp/inv-healthbridge.png';
@@ -224,7 +225,6 @@ import invSkinCenter from '@/assets/bacp/inv-the-skin-center.png';
 import invAdditional from '@/assets/bacp/inv-additional-partner.png';
 
 export const investorLogos = [
-  { name: 'Anovia Health', src: invAnovia },
   { name: 'Metro Vein Centers', src: invMetroVein },
   { name: 'Harley Street Medical', src: invHarleyStreet },
   { name: 'HealthBridge', src: invHealthBridge },

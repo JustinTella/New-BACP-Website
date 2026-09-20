@@ -144,6 +144,13 @@ function Chains({ viewBox, chains }: Composition) {
 
 type NetworkMotifProps = {
   variant?: Variant;
+  /**
+   * Where the band sits in its section. The drawing keeps its own proportions,
+   * so in a tall section it is a band with space above and below it: this says
+   * which part of the section that band crosses. `top` keeps it behind the
+   * opening heading instead of whatever sits in the middle of the section.
+   */
+  align?: 'center' | 'top' | 'bottom';
   /** Positioning and any opacity override for the wrapper. */
   className?: string;
 };
@@ -190,15 +197,17 @@ function MotifSvg({
   );
 }
 
-function NetworkMotif({ variant = 'a', className = '' }: NetworkMotifProps) {
+function NetworkMotif({ variant = 'a', align = 'center', className = '' }: NetworkMotifProps) {
   // Filter ids must be unique or several instances on one page collide, and
   // the two breakpoint frames each carry their own copy.
   const id = useId().replace(/:/g, '');
+  const alignment =
+    align === 'top' ? 'items-start' : align === 'bottom' ? 'items-end' : 'items-center';
 
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute inset-0 flex select-none items-center overflow-hidden ${className}`}
+      className={`pointer-events-none absolute inset-0 flex select-none overflow-hidden ${alignment} ${className}`}
     >
       <MotifSvg
         composition={compositions[variant]}

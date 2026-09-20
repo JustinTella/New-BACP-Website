@@ -179,7 +179,7 @@ function HomePage() {
                   key={pillar.index}
                   {...rise}
                   transition={{ ...rise.transition, delay: i * 0.08 }}
-                  className="flex h-full flex-col bg-light-gray p-8 lg:p-10"
+                  className="flex h-full flex-col bg-light-gray-soft p-8 lg:p-10"
                 >
                   <span className="font-serif text-5xl leading-none text-navy/20">
                     {pillar.index}
@@ -201,7 +201,9 @@ function HomePage() {
 
         {/* Comparison — doubles as a summary of the services and resources pages */}
         <section className="relative overflow-hidden bg-white py-20 md:py-28">
-          <NetworkMotif variant="c" className="opacity-25" />
+          {/* Behind the heading, not the table: centred, the band landed across
+              the comparison rows (Joseph, 2026-09-18). */}
+          <NetworkMotif variant="c" align="top" className="opacity-25" />
           <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-steely-blue">

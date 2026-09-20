@@ -39,7 +39,9 @@ function PageHero({
   divider = true,
 }: PageHeroProps) {
   return (
-    <section className={`${divider ? 'border-b border-navy/10' : ''} bg-white`}>
+    <section
+      className={`${divider ? 'border-b border-navy/10' : ''} relative isolate overflow-hidden bg-white`}
+    >
       {image && (
         <div className="relative h-[32vh] min-h-[240px] w-full overflow-hidden md:h-auto md:aspect-[21/9] md:max-h-[60vh]">
           <picture>
@@ -56,8 +58,23 @@ function PageHero({
         </div>
       )}
 
-      <div className="relative isolate overflow-hidden">
-        {decoration}
+      {/* Joseph, 2026-09-18: on Become a Partner the motif should straddle the
+          banner and the heading below it, sitting on top so the lines sometimes
+          cross the bottom of the photo. The layer starts a third of the way down
+          the section, which puts the band on that boundary; it sits above the
+          image (z-10) and below the words (z-20). With no banner there is
+          nothing to straddle, so it simply fills the block as before. */}
+      {decoration && (
+        <div
+          className={`pointer-events-none absolute inset-x-0 z-10 ${
+            image ? 'bottom-0 top-1/3' : 'inset-y-0'
+          }`}
+        >
+          {decoration}
+        </div>
+      )}
+
+      <div className="relative z-20">
         <div
           className={`relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${
             image ? 'pb-16 pt-12 md:pb-20 md:pt-16' : 'pb-16 pt-16 md:pb-20 md:pt-24'
