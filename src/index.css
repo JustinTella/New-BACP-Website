@@ -149,7 +149,7 @@ html {
   /* Panels that sit over the network motif. Joseph, 2026-09-18: the solid grey
      behind the "Why Blue Angel" text made the connector lines disappear
      completely, so these let the drawing read faintly through the panel. */
-  .bg-light-gray-soft { background-color: hsl(var(--light-gray) / 0.72); }
+  .bg-light-gray-soft { background-color: hsl(var(--light-gray) / 0.55); }
   
   .border-navy { border-color: hsl(var(--navy)); }
   .border-gold { border-color: hsl(var(--gold)); }
