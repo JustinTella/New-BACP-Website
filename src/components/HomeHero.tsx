@@ -49,7 +49,6 @@ function HomeHero() {
 
       <div className="home-hero__inner">
         <div className="home-hero__copy">
-          <span className="home-hero__eyebrow">Blue Angel Clinical Partners</span>
           <h1 id="home-hero-title" className="home-hero__title">
             <span>Empowering physicians,</span>
             <span>preserving autonomy.</span>
