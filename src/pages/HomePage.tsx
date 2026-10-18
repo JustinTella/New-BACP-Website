@@ -36,7 +36,7 @@ const pillars = [
 
 function HomePage() {
   useEffect(() => {
-    document.title = 'Blue Angel Clinical Partners';
+    document.title = 'Concierge Medicine Practice Partnerships | Blue Angel';
   }, []);
 
   return (
