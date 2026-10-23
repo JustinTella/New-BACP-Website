@@ -54,7 +54,7 @@ function HomeHero() {
             <span>preserving autonomy.</span>
           </h1>
           <p className="hero-text home-hero__description">
-            We give independent practices the financial and operational backing of a
+            We give independent concierge medicine practices the financial and operational backing of a
             large group, while patient relations stay with the physicians, exactly
             where they belong.
           </p>

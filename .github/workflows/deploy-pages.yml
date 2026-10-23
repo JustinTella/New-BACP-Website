@@ -31,7 +31,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install browser for search-ready HTML
+        run: npx playwright install --with-deps chromium
+
       - name: Build
+        env:
+          VITE_SITE_URL: https://justintella.github.io/New-BACP-Website
+          VITE_NOINDEX: "true"
         run: npm run build -- --base=/New-BACP-Website/
 
       - name: Upload artifact

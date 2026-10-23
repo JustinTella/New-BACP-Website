@@ -61,6 +61,7 @@ export default {
         gold: "hsl(var(--gold))",
         "steely-blue": "hsl(var(--steely-blue))",
         "light-gray": "hsl(var(--light-gray))",
+        "light-gray-dark": "hsl(var(--light-gray-dark))",
         "dark-blue-gray": "hsl(var(--dark-blue-gray))",
       },
       borderRadius: {

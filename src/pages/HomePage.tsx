@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
@@ -12,6 +11,9 @@ import NetworkMotif from '@/components/NetworkMotif';
 import { rise } from '@/lib/motion';
 import { PrimaryLink, OutlineLink, TextLink } from '@/components/Buttons';
 import { partners } from '@/content/blueangel';
+import SiteSeo from '@/components/SiteSeo';
+import PartnershipQuestions from '@/components/PartnershipQuestions';
+import { siteSeo } from '@/lib/siteSeo';
 
 const pillars = [
   {
@@ -35,12 +37,9 @@ const pillars = [
 ];
 
 function HomePage() {
-  useEffect(() => {
-    document.title = 'Blue Angel Clinical Partners';
-  }, []);
-
   return (
     <>
+      <SiteSeo page={siteSeo.pages[0]} />
       <Header />
 
       <main>
@@ -52,18 +51,18 @@ function HomePage() {
           <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div {...rise} className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
               <h2 className="font-serif text-3xl leading-tight tracking-tight text-navy sm:text-4xl">
-                A partner built for independent medicine
+                A partner built for independent concierge medicine
               </h2>
               <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
                 <p>
                   Physicians are usually offered two options: carry every administrative
-                  burden alone, or sell the practice and accept someone elses protocols.
+                  burden alone, or sell the practice and accept someone else’s protocols.
                   Blue Angel exists because neither is a good answer.
                 </p>
                 <p>
-                  We take on the operational side of the practice and leave the clinical
-                  side alone, a distinction that shapes everything else about how we
-                  partner.
+                  We partner with independent concierge physicians to take on the
+                  operational side of the practice and leave the clinical side in their
+                  hands, a distinction that shapes everything else about our partnership.
                 </p>
               </div>
             </motion.div>
@@ -73,7 +72,7 @@ function HomePage() {
             <Reveal className="mt-16">
               <Link
                 to="/about#current-partners"
-                className="group flex flex-col gap-8 border-l-2 border-gold bg-light-gray p-8 transition-colors duration-200 hover:bg-navy/[0.04] sm:flex-row sm:items-center sm:gap-10 lg:p-10"
+                className="group flex flex-col gap-8 border-l-2 border-gold bg-light-gray p-8 transition-colors duration-200 hover:bg-light-gray-dark sm:flex-row sm:items-center sm:gap-10 lg:p-10"
               >
                 <span className="flex shrink-0 items-center">
                   {partners.map((partner, i) => (
@@ -177,6 +176,7 @@ function HomePage() {
           </div>
         </section>
 
+        <PartnershipQuestions />
         <CTASection />
       </main>
 
